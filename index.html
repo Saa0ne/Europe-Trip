@@ -248,7 +248,7 @@ footer h2{color:#fff}
 
 
 <div class="mosaic" style="margin-top:18px">
-  <a class="tile large" href="#explorer" onclick="focusAttraction('Eiffel Tower')" style="background-image:url('https://globaltours.s3.eu-west-3.amazonaws.com/product-images/eiffel-tower-view.webp')"><span><b>🇫🇷 Paris · 9–12 Sep</b><small>Eiffel · Seine · Montmartre · Père Lachaise on your doorstep</small></span></a>
+  <a class="tile large" href="#explorer" onclick="focusAttraction('Eiffel Tower')" style="background-image:url('https://globaltours.s3.eu-west-3.amazonaws.com/product-images/eiffel-tower-view.webp')"><span><b>🇫🇷 Paris · 9–12 Sep</b><small>Disneyland on the 10th · Eiffel &amp; Montmartre on the 11th</small></span></a>
   <a class="tile" href="#cities" onclick="city('Prague')" style="background-image:url('https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1600&q=85')"><span><b>🇨🇿 Prague · 28–30 Aug</b><small>Castle · Charles Bridge · Letná</small></span></a>
   <a class="tile" href="#cities" onclick="city('Berlin')" style="background-image:url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=1600&q=85')"><span><b>🇩🇪 Berlin · 30 Aug–4 Sep</b><small>Office week from Friedrichstraße</small></span></a>
   <a class="tile" href="#explorer" onclick="focusAttraction('Jordaan')" style="background-image:url('https://www.civitatis.com/f/paises-bajos/amsterdam/galeria/visite-jordaan-amsterdam-2.jpg')"><span><b>🇳🇱 Amsterdam · 4–7 Sep</b><small>Canals + Zaanse Schans windmills</small></span></a>
@@ -355,6 +355,7 @@ footer h2{color:#fff}
     <button class="filter" data-map="Bruges">Bruges</button>
     <button class="filter" data-map="Ghent">Ghent</button>
     <button class="filter" data-map="Paris">Paris</button>
+    <button class="filter" data-map="Disneyland">🏰 Disneyland</button>
     <button class="filter" data-map="Cologne">Cologne</button>
   </div>
   <div class="map-layout">
@@ -400,7 +401,7 @@ footer h2{color:#fff}
     <label>Food / day (€)<input id="bFood" type="number" value="65"></label>
     <label>Intercity tickets, booked (€)<input id="bInter" type="number" value="620"></label>
     <label>City transit total (€)<input id="bTransit" type="number" value="210"></label>
-    <label>Attractions (€)<input id="bAttr" type="number" value="200"></label>
+    <label>Attractions incl. Disneyland (€)<input id="bAttr" type="number" value="400"></label>
   </div>
   <div class="result"><span>Estimated total</span><b id="bTotal">€0</b><span id="bBreak">2 adults + infant · excludes flights and shopping</span></div>
   <div class="callout" style="margin-top:13px"><b>No car line items.</b> Rental, fuel, tolls, cross-border fees and city parking are all gone from this build. That is roughly <b>€900–€1,200</b> you are not spending compared with the original road-trip plan.</div>
@@ -408,6 +409,7 @@ footer h2{color:#fff}
 <div class="card">
   <h3>Where the money actually goes</h3>
   <div id="budgetShape" style="margin-top:12px"></div>
+  <div class="callout warn" style="margin-top:12px"><b>Disneyland is now your biggest single attraction cost.</b> Two adult dated tickets are typically <b>€120–€220</b> depending on the date and whether you take one park or two; your 4-month-old is free, as all under-3s are. Prices are date-based and cheapest booked well in advance on the official site, so the attractions figure above starts at €400 rather than €200. Travel to get there is trivial by comparison: about €10 for the two of you, return.</div>
   <div class="callout good" style="margin-top:12px"><b>Biggest saving available:</b> Berlin is 5 of your 17 nights and Zaandam is 3. Both are the cheapest beds on the route relative to their city. Your genuine cost pressure is Paris — and you have already solved it by staying in the 20th instead of the 7th.</div>
 </div>
 </div>
@@ -444,6 +446,16 @@ footer h2{color:#fff}
 <li>Sunset is around 20:00 in early September, so evening sightseeing after a nap works beautifully.</li>
 <li>If two of you are tired and the baby is fine, still stop. The next day is the one you protect.</li>
 </ul></div>
+<div class="list"><h3>🏰 Disneyland with a 4-month-old · 10 Sep</h3><ul>
+<li><b>Tickets:</b> dated and online only, cheapest booked early. Under-3s go free, so you buy two adult tickets and nothing for the baby.</li>
+<li><b>Baby Care Center on Main Street, U.S.A.</b> — changing tables, bottle warming, a quiet room to feed. There is a second quiet option at First Aid in the other park. Locate it on arrival, not in a crisis.</li>
+<li><b>Rider Switch</b> is free and made for exactly your situation: one of you waits with the baby, then swaps onto the ride without queueing again.</li>
+<li>There is <b>no daycare</b> anywhere in the resort. The baby is with you all day.</li>
+<li>Bring your own pram rather than renting — you need it for the RER anyway, and rental prams cannot leave the park.</li>
+<li>Fantasyland is the whole point at this age: <b>It's a Small World</b>, the carousel, the Disneyland Railroad and the boat rides are all gentle, seated, shaded and often quiet inside.</li>
+<li>Paths are flat and wide, so the pram is genuinely comfortable here — a rarity on this trip.</li>
+<li><b>Leave before the night show.</b> It runs around 22:00 and a 4-month-old plus fireworks plus a 21:00 RER is a bad combination.</li>
+</ul></div>
 <div class="list"><h3>✈️ The flight home · BER 09:40 on 14 Sep</h3><ul>
 <li><b>Bassinet:</b> request it now, not at the airport. Most airlines fit them to bulkhead rows only, with a weight limit around 10–11 kg, and they are allocated first come, first served.</li>
 <li><b>Infant ticket:</b> an under-2 travelling on a lap still needs a ticket and a boarding pass. Confirm the baby is on the booking for <b>both</b> flights, not just the first.</li>
@@ -465,6 +477,7 @@ footer h2{color:#fff}
 <li>Be at coach stops 20 minutes early; coaches leave on time and rarely wait.</li>
 <li>Use the 30 Aug and 4 Sep mornings as slow mornings. They precede long travel.</li>
 <li>Do Bruges and Ghent on the same day trip. They are 27 minutes apart on the same line.</li>
+<li>Book Disneyland tickets online for a dated 10 Sep entry, and leave the hotel by 06:45 to be at the gates before opening.</li>
 <li>Keep 13 Sep completely empty. That is your buffer before the flight, and it is part of the plan.</li>
 <li>Book the 14 Sep taxi at reception on the 13th, for 06:15. Nine minutes of admin removes the only real risk on flight morning.</li>
 <li>Request the bassinet and confirm the infant is ticketed on <b>both</b> flights the moment you read this.</li>
@@ -475,6 +488,8 @@ footer h2{color:#fff}
 <li>Don't rely on the Paris Métro with the pram for the airport-style luggage days. Take a taxi on 9 and 12 Sep.</li>
 <li>Don't cut the Gare du Nord buffer. Gates close 30 minutes before departure and they do not reopen.</li>
 <li>Don't add Antwerp, Rotterdam or Luxembourg. The itinerary is already at its ceiling.</li>
+<li>Don't stay for the Disneyland night show. It ends around 22:00 and puts you back at the hotel near midnight.</li>
+<li>Don't plan anything demanding on 11 Sep beyond Trocadéro and Montmartre. Disneyland took the day that used to absorb the rest.</li>
 <li>Don't book timed museum slots on any travel day.</li>
 <li>Don't bet flight morning on one early S9. It is now the only line at Grünbergallee, and there is no second train worth waiting for.</li>
 <li>Don't pack the baby liquids deep in a bag. They come out at security, every time.</li>
@@ -482,6 +497,7 @@ footer h2{color:#fff}
 </div>
 <div class="acc open"><button onclick="this.parentElement.classList.toggle('open')">💡 Why is the Amsterdam hotel in Zaandam, and is that a problem?</button><div>Not a problem, it's an advantage. Best Western Zaan Inn is next to Zaandam station: Amsterdam Centraal is 11–13 minutes by train with departures every few minutes, and <b>Zaanse Schans is one stop the other way</b>. You get big-city access and countryside scenery from the same platform, at a fraction of central Amsterdam room rates. The trade-off is that you cannot stumble home from a canal-side dinner — you need to watch the last trains, which run late but not all night.</div></div>
 <div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 Bruges, Ghent, or both?</button><div>Both, in that order, on 8 Sep. Brussels-Nord → Gent-Sint-Pieters is about 32 minutes, then Ghent → Bruges is about 27 minutes. Do Ghent's Graslei in the morning light, take the train to Bruges after lunch, and let Bruges empty out around you in the late afternoon — that's when it is at its best. If the baby has a rough morning, drop Ghent and give Bruges the whole day.</div></div>
+<div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 Disneyland with a 4-month-old — and what it costs the rest of Paris</button><div>Be honest about the trade first: <b>Disneyland eats one of your three Paris days</b>, and it was the day that used to hold the Eiffel, Invalides, the Tuileries and a Seine cruise. Those now compress into 11 Sep, and the Arc de Triomphe, the Louvre and the cruise drop off entirely. That is the real price, not the ticket.<br><br>The day itself works better than people expect. Getting there is one seated 35-minute RER ride after two short Métro hops, and the station is a five-minute flat walk from both gates. Inside, the paths are wide and flat, there is a <b>Baby Care Center on Main Street</b>, <b>Rider Switch</b> lets you take turns on anything the baby cannot do, and Fantasyland is full of gentle indoor rides that double as nap opportunities. Your baby will not remember a second of it — this one is for you, and that is a perfectly good reason.<br><br>Two rules make or break it: be at the gates before the 09:30 opening, and <b>leave around 19:00 rather than staying for the night show</b>. A 22:00 finish means a midnight bedtime and it would wreck 11 Sep as well.</div></div>
 <div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 Is the Paris 20th too far out?</button><div>It's a fair trade. Résidence Internationale de Paris sits near Porte de Bagnolet with the T3b tram at the door and Métro 3 five minutes away, so Opéra is roughly 20 minutes and Père Lachaise is a 15-minute walk. You lose the ability to walk to the Eiffel Tower; you save a lot of money and you gain a quiet residential base with a garden, which matters more with an infant.</div></div>
 <div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 What if a leg is delayed or cancelled?</button><div>Your exposure is highest on the two FlixBus legs, because coaches have no alternative service and no through-ticketing. If the 7 Sep or 9 Sep bus is cancelled, the fallback is rail: Amsterdam → Brussels is direct on Eurostar or the IC Brussel (roughly 2–3 hours), and Brussels → Paris is direct on Eurostar (about 1h25). Both are expensive walk-up, so keep a card with headroom. The ICE and Eurostar legs are covered by operator rebooking and, in Germany, by delay compensation from 60 minutes. The one leg with no slack behind it is <b>ICE 557 on 13 Sep</b>, because a flight follows it — which is exactly why the 13th is a buffer day and not a sightseeing day.</div></div>
 <div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 How early do we really need to be at BER on 14 Sep?</button><div>For a 09:40 long-haul connection with an infant, aim to be inside Terminal 1 by <b>06:45</b>, which means leaving the hotel at 06:15. That is about three hours, and it is not padding: bag drop with a pram and a gate tag, security with declared baby liquids, and a feed before boarding each take longer than you expect, and BER's morning peak between 06:00 and 08:00 is its busiest window. If your bags are through-checked to Bengaluru you only do this once, which is the whole argument for confirming that at check-in.</div></div>
@@ -492,6 +508,7 @@ footer h2{color:#fff}
 <div class="head"><div><div class="eyebrow">Verify before you go</div><h2>Official sources for every claim on this page.</h2></div><div class="muted">Checked 21 Aug 2026.</div></div>
 <div class="sources" id="sourceList"></div>
 <div class="callout" style="margin-top:16px"><b>Paris → Cologne on 12 Sep:</b> the 11:15 arrival at Köln Hbf is train <b>ER 9411, departing Paris Gare du Nord at 07:45</b>, per <a href="https://www.eurostar.com/fr-fr/voyage/horaires/8727100/8015458/paris-gare-du-nord/cologne-hbf" target="_blank" rel="noopener noreferrer">Eurostar's timetable</a>. Gates close 30 minutes before departure, at 07:15. Content of the timetable page was summarised, not reproduced.</div>
+<div class="callout" style="margin-top:12px"><b>Disneyland on 10 Sep:</b> park hours are set date by date and are typically <b>09:30 to 22:00</b> in September, but check the official calendar before you book — opening times move, and the day plan here depends on being at the gates for opening. Ticket prices are also date-based, so the same Thursday can cost noticeably more or less than a neighbouring one. Under-3s enter free. Content of the Disneyland pages was summarised, not reproduced.</div>
 <div class="callout" style="margin-top:12px"><b>Paris in September:</b> the official city tourism calendar is the only reliable source for what is on during 9–12 Sep 2026. Trade fairs push hotel prices and crowd the Métro, so check it before you commit to any extra bookings.</div>
 <div class="callout" style="margin-top:12px"><b>Prague with a pram:</b> Prague City Tourism notes that public transport is the easiest way around the city and that most major tram and bus routes are pram-accessible. Charles Bridge itself is cobbled — use the carrier there.</div>
 <div class="callout bad" style="margin-top:12px"><b>Corrected since the last version of this page — three factual errors worth knowing about:</b>
@@ -763,6 +780,7 @@ brussels:'https://assets.micontenthub.com/traveloffers/travel-tips/brussels_Wa7L
 bruges:'https://i.natgeofe.com/n/36098bd5-cbd3-43d4-91ae-7c596fd55568/bruges_16x9.jpg',
 ghent:'https://www.gent-watertoerist.be/media/producten/xl/30/02-rondvaart40.jpg?t=1003',
 paris:'https://globaltours.s3.eu-west-3.amazonaws.com/product-images/eiffel-tower-view.webp',
+disney:'https://commons.wikimedia.org/wiki/Special:FilePath/Aurore_-_La_Belle_au_bois_dormant_-_20150803_16h44_(10793).jpg?width=1400',
 cologne:'https://lp-cms-production.imgix.net/2019-06/0f11e455cdf629e1c6809a96fc8cbd49-kolner-dom.jpg'};
 
 const days=[
@@ -883,29 +901,38 @@ const days=[
   ['13:45','Arrive Paris Bercy Seine. Take a taxi to the hotel — this is the day to spend the €25.'],
   ['14:30','Check in at Résidence Internationale de Paris. Unpack, feed, rest.'],
   ['17:00','Gentle local orientation: Père Lachaise is about 1 km away and is quiet, green and shaded.'],
-  ['19:00','Optional if energy holds: tram T3b + Métro to Trocadéro for your first Eiffel view around sunset (≈20:00 in mid-September).'],
-  ['21:00','Dinner locally. Do not force the Eiffel tonight if anyone is flagging — you have two more evenings.']],
- 'Learn your local transit tonight: the T3b tram stop 250 m away is step-free, Métro 3 is 500 m away and faster. You will use both every day.'],
-[14,'Thu 10 Sep','Paris','Eiffel, Trocadéro, the Seine and Invalides','🗼 Big day','sight',IMG.paris,
- [['08:15','Métro 3 towards the centre, then across to Trocadéro. Aim to be there by 09:00.'],
+  ['18:15','Buy tomorrow\'s transport tonight: two Navigo Easy cards loaded with Métro-Train-RER tickets. Walk the 500 m to Métro 3 Porte de Bagnolet so the route is familiar before you do it at 06:30.'],
+  ['19:15','Early dinner locally, then pack the Disneyland bag: nappies, bottles, formula, a warm layer, rain cover, snacks, portable charger, and the park tickets saved offline in the Disneyland app.'],
+  ['21:00','Bed. No Eiffel tonight — tomorrow is Disneyland from an early start, and the Eiffel is booked for the 11th.']],
+ 'Tomorrow is a full Disneyland day starting before 07:00, so tonight is deliberately short and local. Learn your transit while you are at it: the T3b tram stop 250 m away is step-free, Métro 3 is 500 m away and faster, and Métro 3 is how tomorrow begins.'],
+[14,'Thu 10 Sep','Disneyland Paris','Early start, RER A to Chessy, a full day in the parks','🏰 Disneyland','sight',IMG.disney,
+ [['06:15','Wake, feed, breakfast in the room. The park bag was packed last night, so this is quick.'],
+  ['06:45','Leave the hotel. Métro 3 from Porte de Bagnolet → Père Lachaise, 2 stops, then change to Métro 2 eastbound → <b>Nation</b>, 4 stops.'],
+  ['07:20','At Nation, follow the signs down to <b>RER A</b> and take an eastbound train marked <b>Marne-la-Vallée – Chessy</b>. Read the destination board — RER A splits, and only some trains serve Chessy.'],
+  ['07:35','On the RER. About 35 minutes, seated, and a very reliable pram nap. Feed here so you arrive with a settled baby.'],
+  ['08:15','Marne-la-Vallée – Chessy. The station sits between the two parks — the entrances are a 5-minute flat walk with no steps.'],
+  ['08:40','At the gates well before opening. Parks usually open at 09:30, and the queue you skip now is the hour you gain later.'],
+  ['09:30','<b>Disneyland Park first.</b> Main Street, U.S.A. → the castle → Fantasyland. The gentle rides are here: It\'s a Small World, the Carousel, Le Pays des Contes de Fées, the Disneyland Railroad.'],
+  ['11:00','Find the <b>Baby Care Center on Main Street, U.S.A.</b> early, before you need it. Changing tables, bottle warming, somewhere quiet to feed.'],
+  ['12:00','Lunch inside the park. Sit down properly rather than eating standing up — this is the halfway point of a long day.'],
+  ['13:00','Pram nap in the shade, or ride Disneyland Railroad in a loop while the baby sleeps. Use <b>Rider Switch</b> if one of you wants a big ride: you take turns without queueing twice.'],
+  ['15:00','Optional second park: <b>Disney Adventure World</b> (the former Walt Disney Studios), a 5-minute walk across the esplanade. Only if you bought a 2-park ticket and everyone still has energy.'],
+  ['16:30','Parade on Main Street. Claim a kerb spot 20 minutes early on the shaded side.'],
+  ['18:00','Early dinner in Disney Village, just outside the gates and next to the station.'],
+  ['19:00','<b>Leave now.</b> The night show is around 22:00 and would put you back at the hotel near midnight with a 4-month-old. Not worth it this trip.'],
+  ['20:15','Back at the hotel. Reverse route: RER A → Nation → Métro 2 → Métro 3.']],
+ 'Be at the gates before 09:30 and leave before the night show. That single decision is what turns Disneyland with an infant from an endurance test into a good day — you get the best four hours of the park and you are home at a humane hour.'],
+[15,'Fri 11 Sep','Paris','Eiffel and Montmartre in one compressed day','🥐 Classic Paris','sight',IMG.paris,
+ [['08:00','Métro 3 towards the centre, then across to Trocadéro. Aim to be there by 09:00.'],
   ['09:00','Trocadéro terrace — the best free Eiffel view in Paris and near-empty at this hour.'],
-  ['09:45','Down to the Seine and Pont de Bir-Hakeim, then Champ de Mars beneath the tower.'],
-  ['11:30','Decide honestly: go up the tower only if it genuinely matters to you. With a 4-month-old, the queue costs more than the view returns.'],
-  ['12:30','Lunch near Rue Cler, then back to the hotel for the window. Yes, it is a 30-minute ride. Do it anyway.'],
-  ['16:30','Invalides, then Pont Alexandre III — the most ornate bridge in the city.'],
-  ['18:00','Tuileries Garden and the Louvre courtyard from outside. Chairs, gravel, shade, no tickets.'],
-  ['20:00','Dinner, then home. The tower sparkles for five minutes on the hour after dark.']],
- 'Trocadéro first, Champ de Mars second, and the tower itself optional. That ordering gets you every photograph people actually want without a single queue.'],
-[15,'Fri 11 Sep','Paris','Montmartre, Sacré-Cœur, Arc de Triomphe','🥐 Classic Paris','sight',IMG.paris,
- [['08:30','Métro 3 to a change for Montmartre. Get there before 09:30 and it is a village again.'],
-  ['09:30','Sacré-Cœur and the terrace view across the whole city. Use the funicular rather than the steps with a pram.'],
-  ['10:30','Place du Tertre and the back streets — Rue de l\'Abreuvoir, Rue Lepic.'],
-  ['12:00','Lunch in Montmartre, then back to the hotel for the nap.'],
-  ['16:00','Arc de Triomphe from the Champs-Élysées side, then walk the boulevard down towards Concorde.'],
-  ['18:00','Optional Seine cruise from Pont de l\'Alma — an hour sitting down with the whole city passing by.'],
-  ['20:00','Last Paris dinner. Le Marais and Île de la Cité are alternatives if you want to swap the cruise.'],
-  ['21:30','Home and pack — tomorrow starts at 06:00.']],
- 'Pack tonight, completely. Tomorrow you have an early taxi and a train with gates that close 30 minutes before departure.'],
+  ['09:45','Down to the Seine and Pont de Bir-Hakeim, then Champ de Mars beneath the tower. Skip going up: with a 4-month-old the queue costs more than the view returns.'],
+  ['11:00','Optional if the legs hold: Invalides and Pont Alexandre III, 20 minutes away on foot.'],
+  ['12:30','Lunch near Rue Cler, then back to the hotel for the window. Yes, it is a 30-minute ride. Do it anyway — yesterday was long.'],
+  ['16:00','Métro to Montmartre. Sacré-Cœur and the terrace view across the whole city. Use the funicular, not the steps, with a pram.'],
+  ['17:15','Place du Tertre and the back streets — Rue de l\'Abreuvoir, Rue Lepic. Late afternoon light is as good as morning and the coach crowds have gone.'],
+  ['19:30','Last Paris dinner in Montmartre or back near the hotel.'],
+  ['21:00','Home and pack completely — tomorrow starts at 06:00.']],
+ 'This day carries what used to be two days, because Disneyland took the 10th. Trocadéro in the morning and Montmartre in the late afternoon are the two that matter; the Arc de Triomphe, the Seine cruise and the Tuileries are the ones to drop without guilt.'],
 [16,'Sat 12 Sep','Paris → Cologne','High-speed to the Rhineland, then the Dom at dusk','🚄 Travel day','travel',IMG.cologne,
  [['06:00','Wake, feed, final checks.'],
   ['06:30','Pre-booked taxi to Gare du Nord, about 25–30 minutes.'],
@@ -992,15 +1019,15 @@ const cities={
  links:[['visit.brussels','https://visit.brussels/en'],['Visit Bruges','https://www.visitbruges.be/en'],['Visit Ghent','https://visit.gent.be/en'],['SNCB Belgian rail','https://www.belgiantrain.be/en'],['STIB transit','https://www.stib-mivb.be/index.htm?l=en']]},
 'Paris':{flag:'🇫🇷',dates:'9 → 12 Sep · 3 nights',hotel:'Résidence Internationale de Paris, 20th',hero:IMG.paris,
  base:'The 20th arrondissement near Porte de Bagnolet. Quiet, residential, with the T3b tram at the door and Métro 3 five minutes away.',
- transit:'Buy a <b>Navigo Easy</b> card (€2) and load Métro-Train-RER tickets at €2.55 plus a few Bus-Tram tickets at €2.04 — since the 2025 fare reform they are separate products and a Métro ticket will <b>not</b> open the T3b tram. A <b>Navigo Jour</b> at €12.30 covers everything for a day. Critical detail: most Métro stations are <b>not</b> step-free. Line 14 and the T3b tram are. Plan your pram days around those, and take taxis on the two luggage days.',
- must:['Eiffel Tower','Trocadéro','Champ de Mars','Invalides','Pont Alexandre III','Arc de Triomphe','Montmartre','Sacré-Cœur','Tuileries Garden'],
+ transit:'Buy a <b>Navigo Easy</b> card (€2) and load Métro-Train-RER tickets at €2.55 plus a few Bus-Tram tickets at €2.04 — since the 2025 fare reform they are separate products and a Métro ticket will <b>not</b> open the T3b tram. Paper tickets stopped being sold in November 2025, so the card or the app is your only option. The Métro-Train-RER ticket is valid across the whole région, so <b>Disneyland is €2.55 each way</b>, not a special fare. A <b>Navigo Jour</b> at €12.30 covers everything for a day. Critical detail: most Métro stations are <b>not</b> step-free. Line 14 and the T3b tram are. Plan your pram days around those, and take taxis on the two luggage days.',
+ must:['Disneyland Paris','Eiffel Tower','Trocadéro','Champ de Mars','Invalides','Pont Alexandre III','Arc de Triomphe','Montmartre','Sacré-Cœur','Tuileries Garden'],
  scenic:['Trocadéro at blue hour','Pont de Bir-Hakeim','Seine quays','Montmartre back streets','Père Lachaise','Parc de Belleville viewpoint'],
  food:['Croissant from a boulangerie, not a café','Baguette, cheese and fruit as a picnic','Crêpes','Falafel in the Marais','Onion soup','Crème brûlée','Pastries from a pâtisserie'],
- do:['Trocadéro first, always. Best free Eiffel view and empty before 09:30.','Take the Montmartre funicular instead of the steps with a pram.','Picnic at least once — Champ de Mars or the Tuileries.','Take a taxi on 9 Sep arriving and 12 Sep departing. Non-negotiable with luggage.'],
- dont:['Don\'t try Louvre plus Versailles plus Eiffel. Pick at most one ticketed thing per day.','Don\'t rely on Métro lifts. They mostly do not exist.','Don\'t queue for the Eiffel summit with a 4-month-old.','Don\'t skip the midday hotel window just because the ride back is 30 minutes.'],
- baby:'Workable rather than easy. Parks and the Seine quays are excellent; the Métro is the weak point. Père Lachaise, 1 km from the hotel, is a genuinely lovely quiet pram walk.',
- skip:'Versailles and Disneyland. Both are full days you do not have.',
- links:[['Paris je t\'aime','https://parisjetaime.com/eng/'],['RATP transit','https://www.ratp.fr/en'],['Eiffel Tower official','https://www.toureiffel.paris/en'],['Père Lachaise','https://www.paris.fr/equipements/cimetiere-du-pere-lachaise-4080']]},
+ do:['<b>Disneyland on 10 Sep:</b> book dated tickets online in advance, leave the hotel by 06:45, and be at the gates before opening.','Leave Disneyland before the night show. Home by 20:15 beats home by midnight.','Trocadéro first on the 11th. Best free Eiffel view and empty before 09:30.','Take the Montmartre funicular instead of the steps with a pram.','Take a taxi on 9 Sep arriving and 12 Sep departing. Non-negotiable with luggage.'],
+ dont:['Don\'t add Versailles or the Louvre. Disneyland has taken the one spare full day you had.','Don\'t rely on Métro lifts. They mostly do not exist.','Don\'t queue for the Eiffel summit with a 4-month-old.','Don\'t board the first RER A that arrives at Nation — only some branches serve Marne-la-Vallée – Chessy. Read the destination board.','Don\'t skip the midday hotel window just because the ride back is 30 minutes.'],
+ baby:'Workable rather than easy. Parks and the Seine quays are excellent; the Métro is the weak point. Disneyland itself is genuinely well set up for infants — Baby Care Center, Rider Switch, flat paths — and the 35-minute RER ride is a seated nap. Père Lachaise, 1 km from the hotel, is a lovely quiet pram walk.',
+ skip:'Versailles, the Louvre interior and the Seine cruise. Three days minus a Disneyland day does not stretch to them.',
+ links:[['Paris je t\'aime','https://parisjetaime.com/eng/'],['RATP transit','https://www.ratp.fr/en'],['Disneyland Paris official','https://www.disneylandparis.com/en-gb/'],['Disneyland with children','https://www.disneylandparis.com/en-gb/guest-services/visiting-disneyland-paris-with-children/'],['Eiffel Tower official','https://www.toureiffel.paris/en'],['Père Lachaise','https://www.paris.fr/equipements/cimetiere-du-pere-lachaise-4080']]},
 'Cologne':{flag:'🇩🇪',dates:'12 → 13 Sep · 1 night',hotel:'Hotel Boulevard, Hansaring',hero:IMG.cologne,
  base:'Hansaring, Altstadt-Nord — on the ring boulevard, 1.3 km from the Hauptbahnhof and 1.2 km from the Cathedral.',
  transit:'Everything you need is walkable. If you would rather ride, a single <b>KVB</b> short-trip ticket covers Hansaring to the Hbf or the Dom. One night does not justify a day pass.',
@@ -1062,6 +1089,10 @@ const attractions=[
 ['Ghent','Belgium 🇧🇪','St Michael\'s Bridge','Sint-Michielsbrug, Ghent','📸 Photo','Three towers in one frame from the bridge deck.'],
 ['Ghent','Belgium 🇧🇪','Gravensteen','Gravensteen, Ghent','⭐ Must see','A moated 12th-century castle in the middle of a living city.'],
 ['Ghent','Belgium 🇧🇪','Korenmarkt','Korenmarkt, Ghent','Nice','Central square, cafés, and your lunch stop.'],
+['Disneyland','France 🇫🇷','Disneyland Park','Disneyland Park, Marne-la-Vallée','⭐ Must see','Your 10 Sep anchor. Main Street, the castle and Fantasyland are the baby-friendly core. Book dated tickets online — under-3s are free.'],
+['Disneyland','France 🇫🇷','Disney Adventure World','Disney Adventure World, Marne-la-Vallée','Optional','The second park, formerly Walt Disney Studios, five minutes across the esplanade. Only worth it on a 2-park ticket.'],
+['Disneyland','France 🇫🇷','Baby Care Center','Disneyland Park Main Street USA','👶 Baby easy','On Main Street, U.S.A. Changing tables, bottle warming and a quiet space to feed. Find it before you need it.'],
+['Disneyland','France 🇫🇷','Disney Village','Disney Village, Marne-la-Vallée','Nice','Restaurants and shops outside the gates, between the parks and the RER station. Where to eat before the train home.'],
 ['Paris','France 🇫🇷','Eiffel Tower','Eiffel Tower, Paris','⭐ Must see','Going up is optional. Seeing it from three angles is not.'],
 ['Paris','France 🇫🇷','Trocadéro','Trocadéro, Paris','📸 Photo','The best free Eiffel view in the city. Be there before 09:30.'],
 ['Paris','France 🇫🇷','Champ de Mars','Champ de Mars, Paris','🌿 Scenic','Lawn beneath the tower. Ideal picnic and pram nap.'],
@@ -1127,6 +1158,11 @@ const pins=[
 ['Paris','🏨 Résidence Internationale de Paris',48.8560,2.4085,'9–12 Sep','hotel'],
 ['Paris','🚉 Paris Bercy Seine coach stop',48.8390,2.3820,'FlixBus arrival 9 Sep','station'],
 ['Paris','🚉 Paris Gare du Nord',48.8809,2.3553,'Eurostar 12 Sep','station'],
+['Paris','🚉 Paris Nation · RER A',48.8484,2.3958,'Change here for Disneyland on 10 Sep','station'],
+['Disneyland','Disneyland Park',48.8722,2.7758,'Must see · 10 Sep','sight'],
+['Disneyland','Disney Adventure World',48.8680,2.7803,'Optional second park','sight'],
+['Disneyland','Disney Village',48.8705,2.7825,'Dinner before the train home','sight'],
+['Disneyland','🚉 Marne-la-Vallée – Chessy',48.8700,2.7828,'RER A terminus · 5 min walk to the gates','station'],
 ['Cologne','Cologne Cathedral',50.9413,6.9583,'Must see','sight'],['Cologne','Hohenzollern Bridge',50.9414,6.9656,'Photo','sight'],
 ['Cologne','Rheinboulevard',50.9368,6.9655,'Scenic','sight'],['Cologne','KölnTriangle',50.9388,6.9657,'Photo','sight'],
 ['Cologne','Old Town',50.9389,6.9590,'Must see','sight'],['Cologne','MediaPark',50.9470,6.9420,'Baby','sight'],
@@ -1150,7 +1186,7 @@ const tickets=[
  ['<b>Buy:</b> a STIB 24-hour pass for city days; separate SNCB tickets for the Ghent and Bruges day trip.','<b>Indicative:</b> STIB 24h ≈€8 · Brussels→Ghent ≈€10–12 · Ghent→Bruges ≈€7–9 one way.','<b>Covers:</b> STIB covers metro, tram and bus in Brussels only. Trains are separate.','<b>Note:</b> Belgian rail sells weekend and multi-journey deals — worth checking for the 8 Sep day trip.'],
  'https://www.stib-mivb.be/index.htm?l=en'],
 ['🇫🇷','Paris · 9–12 Sep','RATP / Île-de-France Mobilités',
- ['<b>Buy:</b> a <b>Navigo Easy</b> card (€2, once) at any station counter and load tickets onto it. The old cardboard <b>t+ carnet is gone</b> — fares were restructured on 1 January 2025.','<b>2026 fares:</b> Métro-Train-RER ticket <b>€2.55</b> · Bus-Tram ticket <b>€2.04</b> · Navigo Jour (all zones, unlimited) <b>€12.30</b> · Navigo Semaine €32.40, Mon–Sun only.','<b>The catch that costs people money:</b> the two ticket types are <b>not interchangeable</b>. A Métro ticket is not valid on your T3b tram, and a Bus-Tram ticket is not valid on the Métro. Load some of each, or take a Navigo Jour on the days you will do five or more rides.','<b>Note:</b> most Métro stations have no lift. Line 14 and tram T3b are step-free — build your pram days around them.'],
+ ['<b>Buy:</b> a <b>Navigo Easy</b> card (€2, once) at any station counter and load tickets onto it. The old cardboard <b>t+ carnet is gone</b>, and <b>paper tickets stopped being sold in November 2025</b> — it is the card or the app now.','<b>2026 fares:</b> Métro-Train-RER ticket <b>€2.55</b> · Bus-Tram ticket <b>€2.04</b> · Navigo Jour (all zones, unlimited) <b>€12.30</b> · Navigo Semaine €32.40, Mon–Sun only.','<b>Disneyland on 10 Sep is cheap now:</b> the 2025 reform made one flat Métro-Train-RER fare valid across the whole région, so Nation → Marne-la-Vallée – Chessy is <b>€2.55 each way</b>, and the whole journey from your hotel counts as one ticket if you stay inside the gates. Airports are the only exception, at a flat €14.','<b>The catch that costs people money:</b> the Métro and Bus-Tram tickets are <b>not interchangeable</b>. A Métro ticket will not open your T3b tram, and a Bus-Tram ticket is no good on the Métro. Load some of each, or take a Navigo Jour on the days you will do five or more rides.','<b>Note:</b> most Métro stations have no lift. Line 14 and tram T3b are step-free — build your pram days around them.'],
  'https://www.ratp.fr/en/titres-et-tarifs'],
 ['🇩🇪','Cologne · 12–13 Sep','KVB / VRS',
  ['<b>Buy:</b> a single short-trip (Kurzstrecke) ticket only if you decide not to walk. One night does not justify a day pass.','<b>Indicative:</b> short-trip ≈€2.30 · single ≈€3.40 · day ticket ≈€8.20. VRS raises fares most Januarys, so treat these as ballpark and read the machine.','<b>Covers:</b> S-Bahn, trams and buses within the city zone. Buy in the KVB app or at a stop machine.','<b>Note:</b> Hotel Boulevard to the Cathedral is 1.2 km on foot. You will probably never buy a ticket here.'],
@@ -1187,10 +1223,12 @@ const sources=[
 ['S-Bahn Berlin','https://sbahn.berlin/en/','S9 stopping pattern to Grünbergallee and the withdrawal of the S45.'],
 ['Île-de-France Mobilités','https://www.iledefrance-mobilites.fr/en/','2026 Paris fares: separate Métro and Bus-Tram tickets, Navigo Jour.'],
 ['Rijden de Treinen · engineering works','https://www.rijdendetreinen.nl/en/engineering-works','Live list of Amsterdam–Hannover–Berlin disruption windows in 2026.'],
-['Zaanse Schans official','https://www.dezaanseschans.nl/en/','Whether the proposed €17.50 entry fee is actually in force when you travel.']
+['Zaanse Schans official','https://www.dezaanseschans.nl/en/','Whether the proposed €17.50 entry fee is actually in force when you travel.'],
+['Disneyland Paris','https://www.disneylandparis.com/en-gb/','Dated ticket prices and the 10 Sep opening and closing times.'],
+['Disneyland with children','https://www.disneylandparis.com/en-gb/guest-services/visiting-disneyland-paris-with-children/','Baby Care Center, Rider Switch, feeding and pram facilities.']
 ];
 
-const checks=['Baby passport + Schengen visa check + travel insurance / GHIC card packed','Cot requested and confirmed at all 7 hotels','RegioJet, FlixBus, ICE and Eurostar tickets downloaded offline','Screenshots of all 9 legs saved to the phone gallery','Compact pram + baby carrier (carrier is essential for cobbles)','Rain cover and a warm layer — September evenings drop fast','Changing kit in a cabin bag, never in the hold','Formula / feeding kit for 12 hours of travel on 28 Aug and 4 Sep','Table seat reserved on ICE 148 and ICE 557','ICE 557 on 13 Sep re-checked on bahn.com — Hannover–Berlin engineering works','Taxi pre-booked for 12 Sep 06:30 Gare du Nord run','Taxi pre-booked for 14 Sep 06:15 hotel → BER run','BER flight: bassinet / bulkhead seat requested with the airline','BER flight: infant ticket issued and connection time confirmed','BER flight: terminal confirmed (T1 or T2) on the boarding pass','City transit tickets bought on arrival in each city','Paris: step-free route noted (Métro 14 + tram T3b), separate tram tickets loaded','13 Sep kept completely free as the flight buffer'];
+const checks=['Baby passport + Schengen visa check + travel insurance / GHIC card packed','Cot requested and confirmed at all 7 hotels','RegioJet, FlixBus, ICE and Eurostar tickets downloaded offline','Screenshots of all 9 legs saved to the phone gallery','Compact pram + baby carrier (carrier is essential for cobbles)','Rain cover and a warm layer — September evenings drop fast','Changing kit in a cabin bag, never in the hold','Formula / feeding kit for 12 hours of travel on 28 Aug and 4 Sep','Table seat reserved on ICE 148 and ICE 557','ICE 557 on 13 Sep re-checked on bahn.com — Hannover–Berlin engineering works','Taxi pre-booked for 12 Sep 06:30 Gare du Nord run','Taxi pre-booked for 14 Sep 06:15 hotel → BER run','BER flight: bassinet / bulkhead seat requested with the airline','BER flight: infant ticket issued and connection time confirmed','BER flight: terminal confirmed (T1 or T2) on the boarding pass','City transit tickets bought on arrival in each city','Paris: step-free route noted (Métro 14 + tram T3b), separate tram tickets loaded','Disneyland: dated tickets for 10 Sep booked online and saved offline in the app','Disneyland: park opening time checked (usually 09:30) and route to Nation → RER A confirmed','Disneyland day bag packed the night before, on 9 Sep','13 Sep kept completely free as the flight buffer'];
 
 /* ================= RENDERERS ================= */
 
