@@ -1,0 +1,1461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07101e">
+<title>Europe 2026 · Berlin → Prague → Amsterdam → Brussels → Paris → Cologne → Berlin</title>
+<meta name="description" content="Rail & coach itinerary 28 Aug – 14 Sep 2026 for 2 adults + a 4-month-old. Every booked leg, every station, every hotel transfer with distance and transport mode.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--nav:#07101e;--ink:#101828;--muted:#667085;--line:#e4e7ec;--blue:#3b6fe0;--blue2:#4f8cff;--teal:#12b886;--gold:#f5b94c;--red:#e5484d;--bg:#f4f7fb;--r:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+a{color:inherit}img{max-width:100%;height:auto}button,input,select{font:inherit}
+h1,h2,h3,h4{margin:0}
+.wrap{max-width:1240px;margin:auto;padding:0 22px}
+section{padding:64px 0}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.6px;font-weight:900;color:#2f62cc}
+h2{font-size:clamp(28px,4vw,46px);line-height:1.05;letter-spacing:-1.5px;margin:6px 0}
+h3{font-size:21px;letter-spacing:-.3px}
+.muted{color:var(--muted)}
+.head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:22px;flex-wrap:wrap}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 12px 40px #1018280b}
+.dark{background:linear-gradient(150deg,#0d1728,#17293f);color:#fff;border-color:#22334c}
+.callout{padding:16px 18px;border-radius:16px;background:#eef6ff;border:1px solid #d8e8ff;font-size:14px}
+.warn{background:#fff7ed;border-color:#fed7aa}
+.good{background:#ecfdf5;border-color:#a7f3d0}
+.bad{background:#fef2f2;border-color:#fecaca}
+
+/* HERO */
+.hero{min-height:660px;color:#fff;display:flex;align-items:flex-end;position:relative;background:linear-gradient(180deg,rgba(3,8,18,.15),rgba(3,8,18,.92)),url("https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=2000&q=85") center/cover;background-color:#0b1526}
+.hero-in{position:relative;z-index:2;width:min(1240px,100%);margin:auto;padding:80px 22px 52px}
+.pill{display:inline-flex;padding:8px 13px;border-radius:999px;background:#ffffff1b;border:1px solid #ffffff33;backdrop-filter:blur(14px);font-size:11.5px;font-weight:900;letter-spacing:.4px}
+h1{font-size:clamp(40px,7.4vw,86px);line-height:.94;letter-spacing:-3.4px;max-width:1050px;margin:18px 0 14px}
+.hero p{max-width:820px;font-size:18px;color:#dbe6f4;margin:0}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-top:26px}
+.stat{padding:14px;border-radius:16px;background:#ffffff14;border:1px solid #ffffff24;backdrop-filter:blur(10px)}
+.stat b{display:block;font-size:18px}.stat span{font-size:10.5px;color:#cbd5e1;letter-spacing:.3px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:60;background:#07101eee;color:#fff;backdrop-filter:blur(16px);border-bottom:1px solid #ffffff14}
+.navin{max-width:1240px;margin:auto;padding:9px 16px;display:flex;gap:5px;overflow:auto}
+.nav a,.nav button{border:0;background:transparent;color:#c9d4e3;text-decoration:none;padding:9px 11px;border-radius:10px;white-space:nowrap;font-size:12px;font-weight:800;cursor:pointer}
+.nav a:hover,.nav button:hover{background:#1a2740;color:#fff}
+
+/* ROUTE STRIP */
+.route{display:flex;align-items:flex-start;overflow:auto;padding:20px 0 6px}
+.stop{min-width:126px;text-align:center}
+.dot{width:18px;height:18px;margin:auto;border-radius:50%;background:var(--blue2);border:4px solid #23395c}
+.stop b{display:block;font-size:12.5px;margin-top:8px}.stop small{color:#9fb0c8;font-size:10.5px;display:block}
+.line{min-width:38px;height:3px;background:linear-gradient(90deg,var(--blue2),var(--teal));margin-top:8px;border-radius:9px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px}
+.kpi b{display:block;font-size:24px;letter-spacing:-1px}.kpi small{color:#667085;font-size:11px}
+
+/* TRANSPORT LEDGER */
+.leg{background:#fff;border:1px solid var(--line);border-radius:24px;margin:14px 0;overflow:hidden;box-shadow:0 10px 34px #1018280a}
+.leg-head{display:grid;grid-template-columns:78px 1fr auto;gap:16px;align-items:center;padding:18px 20px;background:linear-gradient(120deg,#f8fbff,#fff)}
+.leg-date{background:#101828;color:#fff;border-radius:15px;padding:9px 6px;text-align:center;line-height:1.1}
+.leg-date b{display:block;font-size:20px}.leg-date span{font-size:10px;color:#c9d4e3;letter-spacing:.5px}
+.leg-mode{font-size:11px;font-weight:900;padding:7px 10px;border-radius:999px;background:#eef4ff;color:#28539c;white-space:nowrap}
+.leg-title{font-size:19px;letter-spacing:-.4px}
+.leg-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.leg-body{display:none;border-top:1px solid var(--line);padding:20px;grid-template-columns:1.05fr .95fr;gap:20px}
+.leg.open .leg-body{display:grid}
+.sched{display:grid;grid-template-columns:66px 1fr;gap:0 14px}
+.sched .t{font-weight:900;font-size:15px;color:#101828;padding:9px 0}
+.sched .p{padding:9px 0;border-left:2px solid #cfe0ff;padding-left:16px;margin-left:-8px;position:relative}
+.sched .p:before{content:"";position:absolute;left:-6px;top:15px;width:10px;height:10px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 0 0 2px #cfe0ff}
+.sched .p b{display:block;font-size:14px}.sched .p span{font-size:12px;color:var(--muted)}
+.transfer{background:linear-gradient(145deg,#f0f7ff,#fff);border:1px solid #d8e8ff;border-radius:18px;padding:17px}
+.transfer h4{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#28539c}
+.tf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:13px 0}
+.tf-grid div{background:#fff;border:1px solid #e4e7ec;border-radius:13px;padding:11px}
+.tf-grid small{display:block;font-size:9.5px;text-transform:uppercase;letter-spacing:.8px;color:#8a94a6;font-weight:900}
+.tf-grid b{font-size:13.5px;line-height:1.35;display:block;margin-top:3px}
+.tf-steps{font-size:13px;margin:0 0 12px;padding-left:18px}
+.tf-steps li{margin:5px 0}
+.btnrow{display:flex;gap:7px;flex-wrap:wrap}
+.btn,.btn2{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:11px;padding:9px 12px;font-size:11.5px;font-weight:900;border:1px solid #d8dee8}
+.btn{background:#101828;color:#fff;border-color:#101828}
+.btn2{background:#fff;color:#344054}
+.note{font-size:12px;color:var(--muted);margin-top:11px}
+.flag{margin-top:12px;padding:12px 14px;border-radius:13px;font-size:12.5px;background:#fff7ed;border:1px solid #fed7aa}
+
+/* FILTERS / TABS */
+.tabs,.filters{display:flex;gap:7px;overflow:auto;margin-bottom:16px;padding-bottom:3px}
+.tab,.filter{border:1px solid #d8dee8;background:#fff;border-radius:999px;padding:9px 13px;font-size:11.5px;font-weight:900;cursor:pointer;white-space:nowrap;color:#344054}
+.tab.active,.filter.active{background:#101828;color:#fff;border-color:#101828}
+
+/* CITY PANELS */
+.city-hero{height:300px;border-radius:var(--r);background:center/cover;background-color:#17253a;position:relative;color:#fff;display:flex;align-items:flex-end;overflow:hidden}
+.city-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 22%,#000d)}
+.city-content{position:relative;z-index:2;padding:24px}
+.columns{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:15px}
+.list{background:#fff;border:1px solid var(--line);border-radius:19px;padding:18px}
+.list ul{padding-left:19px;margin:8px 0}.list li{margin:6px 0;font-size:14px}
+.chip{display:inline-flex;text-decoration:none;margin:3px;padding:6px 10px;border-radius:999px;background:#eef4ff;color:#2d5aa5;font-size:11px;font-weight:900}
+
+/* DAYS */
+.day{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;margin:12px 0;box-shadow:0 8px 28px #10182809}
+.day-top{display:grid;grid-template-columns:54px 1fr auto;gap:15px;align-items:center;padding:17px 19px;cursor:pointer}
+.num{width:46px;height:46px;border-radius:14px;background:#101828;color:#fff;display:grid;place-items:center;font-weight:900;font-size:13px}
+.badge{background:#ecfdf5;color:#047857;padding:7px 10px;border-radius:10px;font-size:10.5px;font-weight:900;white-space:nowrap}
+.badge.travel{background:#eef4ff;color:#28539c}.badge.office{background:#f4f0ff;color:#6b3fd4}.badge.free{background:#fff7ed;color:#b45309}
+.day-body{display:none;border-top:1px solid var(--line);padding:19px;grid-template-columns:1fr 1fr;gap:19px}
+.day.open .day-body{display:grid}
+.day-img{height:230px;background-color:#dfe7f2;border-radius:17px;background:center/cover}
+.tl{border-left:2px solid #cfe0ff;padding-left:17px;margin-top:8px}
+.tl div{margin:0 0 12px;position:relative}
+.tl div:before{content:"";position:absolute;left:-25px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 0 0 2px #cfe0ff}
+.tl b{font-size:11px;color:#1554a0;letter-spacing:.4px}.tl span{display:block;font-size:13.5px}
+
+/* HOTELS */
+.hotel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.hotel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:19px;box-shadow:0 9px 28px #10182809}
+.hotel .tagrow{display:flex;justify-content:space-between;gap:9px;align-items:flex-start}
+.hotel-city{font-size:10px;text-transform:uppercase;letter-spacing:1.1px;color:#2f62cc;font-weight:900}
+.nights{font-size:10px;font-weight:900;background:#101828;color:#fff;padding:5px 8px;border-radius:999px;white-space:nowrap}
+.hotel h3{margin:8px 0 3px;font-size:19px}
+.addr{font-size:12.5px;color:var(--muted)}
+.hrow{margin:9px 0;font-size:13px}.hrow b{color:#344054}
+.hotel-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+
+/* EXPLORER */
+.explorer-controls{display:grid;grid-template-columns:2fr 1fr 1fr repeat(5,auto);gap:8px;align-items:center}
+.search,.explorer-controls select{width:100%;padding:11px 13px;border:1px solid #d8dee8;border-radius:12px;background:#fff;color:#101828;font-weight:700;outline:none}
+.search:focus{border-color:#78a8ff;box-shadow:0 0 0 3px #78a8ff22}
+.explorer-summary{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px;padding:14px 0}
+.attr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.attr-card{border:1px solid var(--line);border-radius:18px;padding:16px;background:linear-gradient(150deg,#fff,#f8fbff);display:flex;flex-direction:column;min-height:196px}
+.attr-top{display:flex;justify-content:space-between;gap:9px}
+.attr-city{font-size:9.5px;text-transform:uppercase;letter-spacing:1px;color:#2f62cc;font-weight:900}
+.attr-tag{font-size:9.5px;font-weight:900;padding:5px 7px;border-radius:999px;background:#eef4ff;color:#275ca9;white-space:nowrap}
+.attr-card h3{font-size:17px;margin:9px 0 5px}.attr-card p{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+.attr-actions{display:flex;gap:7px;margin-top:auto;flex-wrap:wrap}
+.no-results{grid-column:1/-1;padding:34px;text-align:center;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:18px;color:var(--muted)}
+
+/* MAP */
+.map-toolbar{display:flex;gap:7px;overflow:auto;padding:2px 0 14px}
+.map-layout{display:grid;grid-template-columns:1.62fr .58fr;gap:14px}
+.visual-map{position:relative;height:640px;border-radius:20px;overflow:hidden;background:#dbeafe}
+#tripMap{width:100%;height:100%}
+.map-overlay{position:absolute;z-index:5;top:12px;left:12px;display:flex;gap:7px}
+.map-overlay span{background:#fffffff2;border:1px solid #fff;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:900;box-shadow:0 8px 22px #1018281f}
+.map-side{border:1px solid var(--line);border-radius:20px;padding:18px;background:linear-gradient(150deg,#fff,#f8fbff);min-height:640px}
+.map-side-head{display:flex;justify-content:space-between;gap:10px}
+.mini-btn{border:1px solid #d8dee8;background:#fff;border-radius:10px;padding:7px 9px;font-size:11px;font-weight:900;cursor:pointer;height:max-content}
+.leaflet-popup-content-wrapper{border-radius:14px}.leaflet-popup-content{margin:12px;min-width:180px}
+.marker-title{font-weight:900;font-size:14.5px}.marker-meta{font-size:10px;color:var(--muted);margin:3px 0 9px}
+.marker-link{display:inline-block;background:#101828;color:#fff!important;padding:6px 8px;border-radius:8px;text-decoration:none;font-size:10px;font-weight:900}
+
+/* GALLERY / FOOD / MISC */
+.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+.photo{height:216px;background-color:#dfe7f2;border-radius:19px;background:center/cover;position:relative;overflow:hidden}
+.photo:first-child{grid-row:span 2;height:444px}
+.caption{position:absolute;left:12px;bottom:12px;background:#000a;color:#fff;padding:7px 10px;border-radius:10px;font-size:11.5px;font-weight:700}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.food{background:#fff;border:1px solid var(--line);border-radius:19px;padding:18px}
+.icon{font-size:28px}
+.mosaic{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:212px 212px;gap:12px}
+.tile{position:relative;border-radius:19px;background:center/cover;overflow:hidden;text-decoration:none;min-height:170px}
+.tile:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 24%,#07101ed6)}
+.tile span{position:absolute;z-index:2;left:15px;right:15px;bottom:13px;color:#fff}
+.tile b{display:block;font-size:18px}.tile small{display:block;color:#e2e8f0;font-size:10.5px;margin-top:2px}
+.tile.large{grid-row:span 2}
+.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.check{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;gap:9px;font-size:13.5px}
+.check input{accent-color:#2563eb}
+.calc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.calc label{display:block;font-size:10.5px;font-weight:900;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.6px}
+.calc input{width:100%;padding:10px;border:1px solid #d9dee7;border-radius:11px}
+.result{margin-top:14px;background:#101828;color:#fff;border-radius:18px;padding:18px}
+.result b{font-size:33px;display:block;letter-spacing:-1.5px}
+.brow{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;margin:9px 0;font-size:13px}
+.bar{height:9px;background:#e9edf3;border-radius:99px;overflow:hidden;margin-top:5px}
+.bar i{height:100%;display:block;background:linear-gradient(90deg,var(--blue),var(--teal))}
+.acc{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:9px 0}
+.acc button{width:100%;border:0;background:#fff;text-align:left;padding:15px;font-weight:900;cursor:pointer;font-size:14px}
+.acc div{display:none;padding:0 15px 15px;color:#475467;font-size:14px}
+.acc.open div{display:block}
+.sources{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.source{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;text-decoration:none;font-size:13.5px}
+.source:hover{border-color:#9dbdf5}
+.ticket-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.ticket{background:#fff;border:1px solid var(--line);border-radius:19px;padding:18px}
+.ticket h3{font-size:17px;margin:6px 0 8px}
+.ticket p{font-size:13px;margin:7px 0}
+footer{background:#07101e;color:#98a2b3;padding:52px 0}
+footer h2{color:#fff}
+.grid2{display:grid;grid-template-columns:1.08fr .92fr;gap:17px}
+
+@media(max-width:1000px){.explorer-controls{grid-template-columns:1fr 1fr 1fr}.search{grid-column:1/-1}.attr-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}.grid2,.columns,.leg-body,.day-body,.map-layout,.hotel-grid,.tf-grid{grid-template-columns:1fr}.three,.ticket-grid{grid-template-columns:1fr 1fr}.map-side{min-height:auto}.visual-map{height:500px}.mosaic{grid-template-columns:1fr 1fr;grid-template-rows:210px 175px 175px}.tile.large{grid-row:span 1;grid-column:span 2}}
+@media(max-width:600px){.stats,.kpis,.calc,.sources,.three,.checks,.attr-grid,.ticket-grid,.gallery,.mosaic{grid-template-columns:1fr}.hero{min-height:600px;background-attachment:scroll}.leg-head{grid-template-columns:60px 1fr}.leg-mode{grid-column:2;justify-self:start}.day-top{grid-template-columns:48px 1fr}.badge{grid-column:2;justify-self:start}.photo:first-child{grid-row:auto;height:220px}.tile.large{grid-column:auto}.brow{grid-template-columns:1fr}section{padding:46px 0}h1{letter-spacing:-2px}}
+@media print{.nav,.filters,.tabs,.map-toolbar,.btnrow,.hotel-actions{display:none!important}.hero{min-height:320px}.day-body,.leg-body{display:grid!important}.day,.leg{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="hero-in">
+<span class="pill">🚄 28 AUGUST → 14 SEPTEMBER 2026 · 2 ADULTS + 4-MONTH-OLD · ALL TRAIN &amp; COACH</span>
+<h1>Berlin. Prague. Amsterdam.<br>Brussels. Paris. Cologne.</h1>
+<p>Corrected and rebuilt around your real bookings. Land at BER on 28 Aug at 08:00, RegioJet to Prague, back for the Berlin office week, then one clean rail-and-coach arc through the Netherlands, Belgium, France and Germany — and home from BER to Bengaluru at 09:40 on 14 Sep. Every leg below shows the exact station, the exact hotel, and how you get from the drop-off point to your bed.</p>
+<div class="stats">
+<div class="stat"><b>18 days</b><span>28 Aug → 14 Sep</span></div>
+<div class="stat"><b>17 nights</b><span>7 hotels</span></div>
+<div class="stat"><b>9 legs</b><span>booked transport</span></div>
+<div class="stat"><b>5 countries</b><span>CZ · DE · NL · BE · FR</span></div>
+<div class="stat"><b>0 km</b><span>self-driving</span></div>
+<div class="stat"><b>👶 Baby mode</b><span>every transfer</span></div>
+</div></div></header>
+
+<nav class="nav"><div class="navin">
+<a href="#overview">Overview</a>
+<a href="#legs">🚄 Every Leg + Transfer</a>
+<a href="#hotels">🏨 7 Hotels</a>
+<a href="#days">📅 Day by Day</a>
+<a href="#cities">🏙️ City Playbooks</a>
+<a href="#explorer">📍 Attractions</a>
+<a href="#map">🗺️ Map</a>
+<a href="#food">🍽️ Must Eat</a>
+<a href="#tickets">🎫 Local Tickets</a>
+<a href="#budget">💶 Budget</a>
+<a href="#baby">👶 Baby Mode</a>
+<a href="#rules">✅ Do &amp; Don't</a>
+<a href="#sources">🔎 Sources</a>
+<button onclick="window.print()">🖨 Print / PDF</button>
+</div></nav>
+
+<main>
+
+<section id="overview"><div class="wrap">
+<div class="head"><div><div class="eyebrow">What changed</div><h2>This is no longer a road trip. It's a rail trip.</h2>
+<p class="muted" style="margin:8px 0 0;max-width:820px">Your original plan assumed a rental car from Berlin with parking strategies for every city. Your actual bookings are a coach to Prague, an ICE to Amsterdam, two FlixBuses, a Eurostar and an ICE home. So the car, fuel and parking layers are gone, and everything is rebuilt around stations, walking distances and city transit.</p></div></div>
+
+<div class="card dark">
+  <div class="eyebrow" style="color:#8ab7ff">THE ARC</div>
+  <div class="route" id="route"></div>
+  <p style="color:#c9d4e3;font-size:14px;margin:6px 0 0">Berlin is your hinge city: you land there, you leave from there for Prague, you work there for four days, and you fly home from there. Everything in between is a single westward sweep with no backtracking.</p>
+</div>
+
+<div class="kpis" style="margin-top:16px">
+<div class="kpi"><b>4h15</b><small>longest coach (Berlin→Prague)</small></div>
+<div class="kpi"><b>5h44</b><small>longest train (Berlin→Amsterdam)</small></div>
+<div class="kpi"><b>10 min</b><small>longest hotel walk (Brussels)</small></div>
+<div class="kpi"><b>09:40</b><small>flight home, BER → Bengaluru, 14 Sep</small></div>
+</div>
+
+
+<div class="mosaic" style="margin-top:18px">
+  <a class="tile large" href="#explorer" onclick="focusAttraction('Eiffel Tower')" style="background-image:url('https://globaltours.s3.eu-west-3.amazonaws.com/product-images/eiffel-tower-view.webp')"><span><b>🇫🇷 Paris · 9–12 Sep</b><small>Eiffel · Seine · Montmartre · Père Lachaise on your doorstep</small></span></a>
+  <a class="tile" href="#cities" onclick="city('Prague')" style="background-image:url('https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1600&q=85')"><span><b>🇨🇿 Prague · 28–30 Aug</b><small>Castle · Charles Bridge · Letná</small></span></a>
+  <a class="tile" href="#cities" onclick="city('Berlin')" style="background-image:url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=1600&q=85')"><span><b>🇩🇪 Berlin · 30 Aug–4 Sep</b><small>Office week from Friedrichstraße</small></span></a>
+  <a class="tile" href="#explorer" onclick="focusAttraction('Jordaan')" style="background-image:url('https://www.civitatis.com/f/paises-bajos/amsterdam/galeria/visite-jordaan-amsterdam-2.jpg')"><span><b>🇳🇱 Amsterdam · 4–7 Sep</b><small>Canals + Zaanse Schans windmills</small></span></a>
+  <a class="tile" href="#cities" onclick="city('Brussels')" style="background-image:url('https://assets.micontenthub.com/traveloffers/travel-tips/brussels_Wa7LMmC1t.jpg')"><span><b>🇧🇪 Brussels · 7–9 Sep</b><small>Grand-Place + Bruges &amp; Ghent day trip</small></span></a>
+  <a class="tile" href="#explorer" onclick="focusAttraction('Cologne Cathedral')" style="background-image:url('https://lp-cms-production.imgix.net/2019-06/0f11e455cdf629e1c6809a96fc8cbd49-kolner-dom.jpg')"><span><b>🇩🇪 Cologne · 12 Sep</b><small>Dom · Rhine · Hohenzollern</small></span></a>
+</div>
+</div></section>
+
+<section id="legs" style="background:linear-gradient(180deg,#fff,#f4f7fb)"><div class="wrap">
+<div class="head"><div><div class="eyebrow">The transport ledger · the most important page</div><h2>Every booked leg, and exactly how you reach the hotel.</h2>
+<p class="muted" style="margin:8px 0 0;max-width:860px">Each card gives you the operator and service number, the departure station with its street address, the arrival point, and then the drop-off → hotel transfer: distance, mode, journey time and rough cost. Every button opens the real place or the real transit route in Google Maps.</p></div></div>
+<div class="filters" id="legFilters">
+  <button class="filter active" data-leg="all">All 9 legs</button>
+  <button class="filter" data-leg="Coach">🚌 Coach</button>
+  <button class="filter" data-leg="Train">🚄 Train</button>
+  <button class="filter" data-leg="Flight">✈️ Airport days</button>
+  <button class="filter" type="button" id="legOpenAll">Open all</button>
+  <button class="filter" type="button" id="legCloseAll">Close all</button>
+</div>
+<div id="legList"></div>
+<div class="callout good" style="margin-top:16px"><b>Golden rule for every transfer:</b> with a 4-month-old, budget double the map's walking time. A 10-minute walk with a pram, two suitcases and a feed stop is realistically 20 minutes. Every arrival day below is deliberately empty until the hotel is sorted.</div>
+</div></section>
+
+<section id="hotels"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Where you sleep</div><h2>Seven hotels, 17 nights, zero guesswork.</h2></div><div class="muted">Addresses verified · confirm cot availability before arrival.</div></div>
+<div class="filters">
+  <button class="filter active" data-hotel="all">All</button>
+  <button class="filter" data-hotel="Prague">🇨🇿 Prague</button>
+  <button class="filter" data-hotel="Berlin">🇩🇪 Berlin</button>
+  <button class="filter" data-hotel="Amsterdam">🇳🇱 Amsterdam</button>
+  <button class="filter" data-hotel="Brussels">🇧🇪 Brussels</button>
+  <button class="filter" data-hotel="Paris">🇫🇷 Paris</button>
+  <button class="filter" data-hotel="Cologne">🇩🇪 Cologne</button>
+</div>
+<div id="hotelGrid" class="hotel-grid"></div>
+<div class="callout warn" style="margin-top:16px"><b>One call to make now:</b> ring or email each property and ask for a cot (Kinderbett / dětská postýlka / babybedje / lit bébé). At Residence Vysta, Condo Gardens and Résidence Internationale de Paris the room stock is apartment-style, so cots are limited and usually free but not guaranteed.</div>
+</div></section>
+
+<section id="days" style="background:linear-gradient(180deg,#fff,#f4f7fb)"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Master itinerary</div><h2>18 days, hour by hour.</h2>
+<p class="muted" style="margin:8px 0 0">Tap any day to open the full timeline. Travel days carry no sightseeing before check-in.</p></div></div>
+<div class="filters">
+  <button class="filter active" data-filter="all">All days</button>
+  <button class="filter" data-filter="travel">🚄 Travel</button>
+  <button class="filter" data-filter="office">💼 Office week</button>
+  <button class="filter" data-filter="sight">🏛️ Sightseeing</button>
+  <button class="filter" data-filter="free">🛟 Buffer</button>
+  <button class="filter" type="button" id="dayOpenAll">Open all</button>
+  <button class="filter" type="button" id="dayCloseAll">Close all</button>
+</div>
+<div id="dayList"></div>
+</div></section>
+
+<section id="cities"><div class="wrap">
+<div class="head"><div><div class="eyebrow">City playbooks</div><h2>Each base, decoded.</h2>
+<p class="muted" style="margin:8px 0 0">What to see, what to eat, how the transit works from your specific hotel, and what to skip.</p></div></div>
+<div class="tabs" id="cityTabs"></div>
+<div id="cityPanel"></div>
+</div></section>
+
+<section id="spots" style="background:linear-gradient(180deg,#fff,#f4f7fb)"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Scenery first</div><h2>The shots worth planning your day around.</h2></div></div>
+<div class="gallery">
+<div class="photo" style="background-image:url('https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1600&q=85')"><span class="caption">Prague · Vltava &amp; Old Town skyline</span></div>
+<div class="photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Charles_Bridge_Prague,_Czech_Republic.png?width=1200')"><span class="caption">Prague · Charles Bridge at dawn</span></div>
+<div class="photo" style="background-image:url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=1200&q=85')"><span class="caption">Berlin · Brandenburg Gate</span></div>
+<div class="photo" style="background-image:url('https://www.civitatis.com/f/paises-bajos/amsterdam/galeria/visite-jordaan-amsterdam-2.jpg')"><span class="caption">Amsterdam · Jordaan canals</span></div>
+<div class="photo" style="background-image:url('https://images.unsplash.com/photo-1534313314376-a72289b6181e?auto=format&fit=crop&w=1200&q=85')"><span class="caption">Zaanse Schans · one stop from your hotel</span></div>
+<div class="photo" style="background-image:url('https://i.natgeofe.com/n/36098bd5-cbd3-43d4-91ae-7c596fd55568/bruges_16x9.jpg')"><span class="caption">Bruges · blue hour</span></div>
+<div class="photo" style="background-image:url('https://lp-cms-production.imgix.net/2019-06/0f11e455cdf629e1c6809a96fc8cbd49-kolner-dom.jpg')"><span class="caption">Cologne · Dom &amp; the Rhine</span></div>
+</div>
+</div></section>
+
+<section id="explorer"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Attraction explorer</div><h2>Search it, filter it, open it in Maps.</h2></div></div>
+<div class="card">
+  <div class="explorer-controls">
+    <input id="attrSearch" class="search" placeholder="🔎 Search Eiffel, canal, castle, windmill, Grand-Place..." autocomplete="off">
+    <select id="attrCity"><option value="all">All cities</option></select>
+    <select id="attrCountry"><option value="all">All countries</option></select>
+    <button class="filter active" data-attr="all">All</button>
+    <button class="filter" data-attr="Must">⭐ Must see</button>
+    <button class="filter" data-attr="Scenic">🌿 Scenic</button>
+    <button class="filter" data-attr="Photo">📸 Photo</button>
+    <button class="filter" data-attr="Baby">👶 Baby easy</button>
+  </div>
+  <div class="explorer-summary"><span id="attrCount"></span><span>Maps and TripAdvisor links are generated from the exact place name.</span></div>
+  <div id="attrGrid" class="attr-grid"></div>
+</div>
+</div></section>
+
+<section id="map" style="background:linear-gradient(180deg,#fff,#f4f7fb)"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Visual command centre</div><h2>Your whole trip on one map.</h2></div><div class="muted">Hotels, stations and sights. Tap any pin.</div></div>
+<div class="card">
+  <div class="map-toolbar" id="mapToolbar">
+    <button class="filter active" data-map="all">Everything</button>
+    <button class="filter" data-map="Hotel">🏨 My hotels</button>
+    <button class="filter" data-map="Station">🚉 My stations</button>
+    <button class="filter" data-map="Prague">Prague</button>
+    <button class="filter" data-map="Berlin">Berlin</button>
+    <button class="filter" data-map="Amsterdam">Amsterdam</button>
+    <button class="filter" data-map="Zaandam">Zaandam</button>
+    <button class="filter" data-map="Brussels">Brussels</button>
+    <button class="filter" data-map="Bruges">Bruges</button>
+    <button class="filter" data-map="Ghent">Ghent</button>
+    <button class="filter" data-map="Paris">Paris</button>
+    <button class="filter" data-map="Cologne">Cologne</button>
+  </div>
+  <div class="map-layout">
+    <div class="visual-map">
+      <div id="tripMap"></div>
+      <div id="mapFallback" style="display:none;position:absolute;inset:0;background:#eef4ff;z-index:20;place-items:center;padding:24px;text-align:center">
+        <div><div style="font-size:36px">🗺️</div><h3>Interactive map unavailable</h3>
+        <p class="muted">The map library was blocked by your browser or network. Every attraction link elsewhere on this page still works.</p>
+        <a class="btn" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Berlin%2C%20Germany">Open Google Maps</a></div>
+      </div>
+      <div class="map-overlay"><span>● <b id="mapCount">0</b> pins</span><span>🖱️ Tap a pin</span></div>
+    </div>
+    <div class="map-side">
+      <div class="map-side-head"><div><span class="eyebrow">Selected place</span><h3 id="selTitle">Your route at a glance</h3></div><button id="resetMap" class="mini-btn">Reset</button></div>
+      <p id="selText" class="muted">The dashed line is your actual travel order: Berlin → Prague → Berlin → Amsterdam → Brussels → Paris → Cologne → Berlin. Blue pins are sights, dark pins are hotels, green pins are the stations you actually use.</p>
+      <div id="selActions"></div>
+      <div class="callout" style="margin-top:14px"><b>Pin legend</b><br>🔵 Sight or scenic spot · ⚫ Your booked hotel · 🟢 Station / coach stop in your itinerary.</div>
+      <div class="callout good" style="margin-top:11px"><b>Why not an embedded Google map?</b> A plain Google Maps iframe cannot carry dozens of custom pins without a paid API key. This uses OpenStreetMap tiles for the overview and hands off to Google Maps for navigation, which is the reliable combination.</div>
+    </div>
+  </div>
+</div>
+</div></section>
+
+<section id="food"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Food mode</div><h2>Must eat, country by country.</h2></div><div class="muted">Bakery breakfast, casual lunch, one proper dinner. Repeat.</div></div>
+<div class="three" id="foodGrid"></div>
+</div></section>
+
+<section id="tickets" style="background:linear-gradient(180deg,#fff,#f4f7fb)"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Local transport</div><h2>What ticket to buy the moment you arrive.</h2>
+<p class="muted" style="margin:8px 0 0">Your intercity legs are booked. This is the layer that actually moves you around each city — and where people waste the most money.</p></div></div>
+<div class="ticket-grid" id="ticketGrid"></div>
+<div class="callout warn" style="margin-top:16px"><b>Fares change every year.</b> The figures below are indicative, not quotes. Buy from the official operator app or a station machine, and check the current price on arrival. Prams travel free everywhere on this route; the adult still needs a valid ticket.</div>
+</div></section>
+
+<section id="budget"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Money dashboard</div><h2>Tune the trip to your real budget.</h2></div></div>
+<div class="grid2">
+<div class="card">
+  <div class="calc">
+    <label>Nights<input id="bNights" type="number" value="17"></label>
+    <label>Avg hotel / night (€)<input id="bHotel" type="number" value="125"></label>
+    <label>Food / day (€)<input id="bFood" type="number" value="65"></label>
+    <label>Intercity tickets, booked (€)<input id="bInter" type="number" value="620"></label>
+    <label>City transit total (€)<input id="bTransit" type="number" value="210"></label>
+    <label>Attractions (€)<input id="bAttr" type="number" value="200"></label>
+  </div>
+  <div class="result"><span>Estimated total</span><b id="bTotal">€0</b><span id="bBreak">2 adults + infant · excludes flights and shopping</span></div>
+  <div class="callout" style="margin-top:13px"><b>No car line items.</b> Rental, fuel, tolls, cross-border fees and city parking are all gone from this build. That is roughly <b>€900–€1,200</b> you are not spending compared with the original road-trip plan.</div>
+</div>
+<div class="card">
+  <h3>Where the money actually goes</h3>
+  <div id="budgetShape" style="margin-top:12px"></div>
+  <div class="callout good" style="margin-top:12px"><b>Biggest saving available:</b> Berlin is 5 of your 17 nights and Zaandam is 3. Both are the cheapest beds on the route relative to their city. Your genuine cost pressure is Paris — and you have already solved it by staying in the 20th instead of the 7th.</div>
+</div>
+</div>
+</div></section>
+
+<section id="baby" style="background:linear-gradient(180deg,#fff,#f4f7fb)"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Baby mode</div><h2>Built for a 4-month-old on trains.</h2>
+<p class="muted" style="margin:8px 0 0">No car seat needed on this itinerary. What matters instead is lifts, platform gaps, feed timing and how long each transfer really takes.</p></div></div>
+<div class="checks" id="checks"></div>
+<div class="columns" style="margin-top:17px">
+<div class="list"><h3>🚄 Long-leg rules</h3><ul>
+<li>Book a seat with a table on the ICE legs — it doubles as a changing and feeding surface.</li>
+<li>ICE trains have a baby-change compartment; on FlixBus the onboard toilet does not, so change the baby before boarding and at every rest stop.</li>
+<li>Feed on departure and on arrival. Pressure is not an issue on trains, but routine is.</li>
+<li>Keep one small bag with nappies, wipes, a spare outfit and a bottle at your feet, never in the overhead rack.</li>
+<li>Board early. Reaching your seat with a pram after 40 other people is the single most stressful moment of any rail day.</li>
+</ul></div>
+<div class="list"><h3>🛗 Station and pram reality</h3><ul>
+<li><b>Prague metro:</b> Nádraží Holešovice and Florenc both have lifts, but check the door on the platform — some are step-free only via one exit.</li>
+<li><b>Paris:</b> most Métro stations are <b>not</b> step-free. Line 14 and the T3b tram are. Plan around that, or take a taxi.</li>
+<li><b>Amsterdam / Zaandam:</b> fully lift-equipped and the flattest city on the route.</li>
+<li><b>Brussels-Nord → hotel:</b> flat pavement the whole way, no steps.</li>
+<li><b>Cologne Hbf → Hansaring:</b> a 1.3 km flat walk, or one lift-served S-Bahn stop.</li>
+</ul></div>
+<div class="list"><h3>🍼 Supplies on the road</h3><ul>
+<li>Pharmacies: <b>Lékárna</b> (CZ), <b>Apotheke</b> (DE), <b>Apotheek</b> (NL), <b>Apotheek/Pharmacie</b> (BE), <b>Pharmacie</b> (FR).</li>
+<li>Nappies and formula are cheapest in supermarkets: Albert/Rossmann (CZ), dm/Rossmann (DE), Albert Heijn/Kruidvat (NL), Delhaize/Colruyt (BE), Monoprix/Carrefour (FR).</li>
+<li>Carry your EHIC/GHIC or travel insurance card plus the baby's passport at all times — you cross four borders.</li>
+<li>Sunday closures are real in Germany and Belgium. Stock up on Saturday.</li>
+</ul></div>
+<div class="list"><h3>⏱️ The pacing rule that saves the trip</h3><ul>
+<li>One anchor activity per day. Everything else is optional.</li>
+<li>A 13:00–15:00 hotel window on every non-travel day, non-negotiable.</li>
+<li>Sunset is around 20:00 in early September, so evening sightseeing after a nap works beautifully.</li>
+<li>If two of you are tired and the baby is fine, still stop. The next day is the one you protect.</li>
+</ul></div>
+<div class="list"><h3>✈️ The flight home · BER 09:40 on 14 Sep</h3><ul>
+<li><b>Bassinet:</b> request it now, not at the airport. Most airlines fit them to bulkhead rows only, with a weight limit around 10–11 kg, and they are allocated first come, first served.</li>
+<li><b>Infant ticket:</b> an under-2 travelling on a lap still needs a ticket and a boarding pass. Confirm the baby is on the booking for <b>both</b> flights, not just the first.</li>
+<li><b>Liquids:</b> baby milk, formula, expressed milk and water for the baby are exempt from the 100 ml rule at EU security. Carry them separately and declare them. Expect them to be screened.</li>
+<li><b>Pram:</b> ask at bag drop for a gate tag so you keep it right up to boarding. Compact prams sometimes go in the cabin, but never assume it.</li>
+<li><b>Ears:</b> feed or offer a dummy on the climb and on every descent. This is the one place where cabin pressure genuinely matters, unlike on the trains.</li>
+<li><b>Connection:</b> there is no non-stop BER → Bengaluru, so you will change once. Under 90 minutes at a large hub with a pram is tight — ask about a longer layover if that is what you have been given.</li>
+<li><b>Documents:</b> passports for all three, plus the baby's visa or OCI paperwork if India requires it for your nationality. Check this weeks ahead, not the night before.</li>
+</ul></div>
+</div>
+</div></section>
+
+<section id="rules"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Playbook</div><h2>Do, don't, and the honest trade-offs.</h2></div></div>
+<div class="columns">
+<div class="list"><h3>✅ Do</h3><ul>
+<li>Buy every city's day or multi-day transit pass on arrival, not per ride.</li>
+<li>Validate FlixBus and RegioJet tickets on the app and screenshot them — coach terminals have poor signal.</li>
+<li>Be at coach stops 20 minutes early; coaches leave on time and rarely wait.</li>
+<li>Use the 30 Aug and 4 Sep mornings as slow mornings. They precede long travel.</li>
+<li>Do Bruges and Ghent on the same day trip. They are 27 minutes apart on the same line.</li>
+<li>Keep 13 Sep completely empty. That is your buffer before the flight, and it is part of the plan.</li>
+<li>Book the 14 Sep taxi at reception on the 13th, for 06:15. Nine minutes of admin removes the only real risk on flight morning.</li>
+<li>Request the bassinet and confirm the infant is ticketed on <b>both</b> flights the moment you read this.</li>
+</ul></div>
+<div class="list"><h3>❌ Don't</h3><ul>
+<li>Don't attempt Giethoorn. Without a car it eats an entire day for 40 minutes of village.</li>
+<li>Don't plan sightseeing on 28 Aug beyond a gentle Letná or Stromovka walk — you'll have been travelling for 12 hours.</li>
+<li>Don't rely on the Paris Métro with the pram for the airport-style luggage days. Take a taxi on 9 and 12 Sep.</li>
+<li>Don't cut the Gare du Nord buffer. Gates close 30 minutes before departure and they do not reopen.</li>
+<li>Don't add Antwerp, Rotterdam or Luxembourg. The itinerary is already at its ceiling.</li>
+<li>Don't book timed museum slots on any travel day.</li>
+<li>Don't bet flight morning on one early S9. It is now the only line at Grünbergallee, and there is no second train worth waiting for.</li>
+<li>Don't pack the baby liquids deep in a bag. They come out at security, every time.</li>
+</ul></div>
+</div>
+<div class="acc open"><button onclick="this.parentElement.classList.toggle('open')">💡 Why is the Amsterdam hotel in Zaandam, and is that a problem?</button><div>Not a problem, it's an advantage. Best Western Zaan Inn is next to Zaandam station: Amsterdam Centraal is 11–13 minutes by train with departures every few minutes, and <b>Zaanse Schans is one stop the other way</b>. You get big-city access and countryside scenery from the same platform, at a fraction of central Amsterdam room rates. The trade-off is that you cannot stumble home from a canal-side dinner — you need to watch the last trains, which run late but not all night.</div></div>
+<div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 Bruges, Ghent, or both?</button><div>Both, in that order, on 8 Sep. Brussels-Nord → Gent-Sint-Pieters is about 32 minutes, then Ghent → Bruges is about 27 minutes. Do Ghent's Graslei in the morning light, take the train to Bruges after lunch, and let Bruges empty out around you in the late afternoon — that's when it is at its best. If the baby has a rough morning, drop Ghent and give Bruges the whole day.</div></div>
+<div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 Is the Paris 20th too far out?</button><div>It's a fair trade. Résidence Internationale de Paris sits near Porte de Bagnolet with the T3b tram at the door and Métro 3 five minutes away, so Opéra is roughly 20 minutes and Père Lachaise is a 15-minute walk. You lose the ability to walk to the Eiffel Tower; you save a lot of money and you gain a quiet residential base with a garden, which matters more with an infant.</div></div>
+<div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 What if a leg is delayed or cancelled?</button><div>Your exposure is highest on the two FlixBus legs, because coaches have no alternative service and no through-ticketing. If the 7 Sep or 9 Sep bus is cancelled, the fallback is rail: Amsterdam → Brussels is direct on Eurostar or the IC Brussel (roughly 2–3 hours), and Brussels → Paris is direct on Eurostar (about 1h25). Both are expensive walk-up, so keep a card with headroom. The ICE and Eurostar legs are covered by operator rebooking and, in Germany, by delay compensation from 60 minutes. The one leg with no slack behind it is <b>ICE 557 on 13 Sep</b>, because a flight follows it — which is exactly why the 13th is a buffer day and not a sightseeing day.</div></div>
+<div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 How early do we really need to be at BER on 14 Sep?</button><div>For a 09:40 long-haul connection with an infant, aim to be inside Terminal 1 by <b>06:45</b>, which means leaving the hotel at 06:15. That is about three hours, and it is not padding: bag drop with a pram and a gate tag, security with declared baby liquids, and a feed before boarding each take longer than you expect, and BER's morning peak between 06:00 and 08:00 is its busiest window. If your bags are through-checked to Bengaluru you only do this once, which is the whole argument for confirming that at check-in.</div></div>
+<div class="acc"><button onclick="this.parentElement.classList.toggle('open')">💡 What changed on Berlin's railways in December 2025, and why does it matter to us?</button><div>Two things, and both work in your favour. The <b>Dresdner Bahn</b> opened, so FEX and RE trains now run direct from BER via Südkreuz to Berlin Hbf — roughly 14 minutes to Südkreuz and 23 to Hbf, instead of the old 39-minute crawl. At the same time the <b>S45 was withdrawn</b>, so any older guide telling you to ride the S45 from the airport to Südkreuz is out of date. The practical consequences: your 28 Aug arrival transfer is much faster than planned, and Grünbergallee on 13–14 Sep is now served by the S9 alone, which is why the airport taxi is worth booking.</div></div>
+</div></section>
+
+<section id="sources" style="background:linear-gradient(180deg,#fff,#f4f7fb)"><div class="wrap">
+<div class="head"><div><div class="eyebrow">Verify before you go</div><h2>Official sources for every claim on this page.</h2></div><div class="muted">Checked 21 Aug 2026.</div></div>
+<div class="sources" id="sourceList"></div>
+<div class="callout" style="margin-top:16px"><b>Paris → Cologne on 12 Sep:</b> the 11:15 arrival at Köln Hbf is train <b>ER 9411, departing Paris Gare du Nord at 07:45</b>, per <a href="https://www.eurostar.com/fr-fr/voyage/horaires/8727100/8015458/paris-gare-du-nord/cologne-hbf" target="_blank" rel="noopener noreferrer">Eurostar's timetable</a>. Gates close 30 minutes before departure, at 07:15. Content of the timetable page was summarised, not reproduced.</div>
+<div class="callout" style="margin-top:12px"><b>Paris in September:</b> the official city tourism calendar is the only reliable source for what is on during 9–12 Sep 2026. Trade fairs push hotel prices and crowd the Métro, so check it before you commit to any extra bookings.</div>
+<div class="callout" style="margin-top:12px"><b>Prague with a pram:</b> Prague City Tourism notes that public transport is the easiest way around the city and that most major tram and bus routes are pram-accessible. Charles Bridge itself is cobbled — use the carrier there.</div>
+<div class="callout bad" style="margin-top:12px"><b>Corrected since the last version of this page — three factual errors worth knowing about:</b>
+<br>1. <b>The S45 no longer exists.</b> It was withdrawn in the 14 December 2025 timetable change. The 28 Aug airport transfer now uses FEX or RE trains over the new Dresdner Bahn, which is faster anyway: BER → Südkreuz in about 14 minutes.
+<br>2. <b>Grünbergallee is not one stop from BER.</b> It is three — Schönefeld, then Waßmannsdorf, then the airport — roughly 11 minutes on the S9. The old "one stop, 6 minutes" figure would have cost you real time on flight morning.
+<br>3. <b>Berlin's 7-day travelcard was withdrawn on 1 January 2026</b> and Paris restructured its fares in 2025, retiring the t+ carnet. Both recommendations have been replaced with what is actually on sale in 2026.</div>
+<div class="callout warn" style="margin-top:12px"><b>Open risk, not an error:</b> the Hannover–Berlin high-speed line has repeated engineering works through 2026, with a window covering 12–14 September, and from October Netherlands–Berlin services are being rerouted via Hamburg. That corridor is exactly what <b>ICE 557 uses on 13 Sep</b>, the day before your flight. Check it on bahn.com a week out and again the night before. Content of the operator pages was summarised, not reproduced.</div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+<div class="eyebrow" style="color:#8ab7ff">The final rule</div>
+<h2 style="color:#fff;max-width:900px">A great trip isn't the one with the most pins. It's the one where everyone still has energy at dinner.</h2>
+<p style="max-width:900px">28 Aug – 14 Sep 2026 · 2 adults + a 4-month-old · 17 nights · 7 hotels · 9 booked legs · Prague 2 nights · Berlin 5 + 1 nights · Zaandam 3 nights · Brussels 2 nights · Paris 3 nights · Cologne 1 night · all European travel by train and coach · home from BER at 09:40 on 14 Sep.</p>
+<p><small>Images load from external sources and need an internet connection. Verify opening hours, ticket conditions, transit fares, platform changes and hotel policies shortly before travel. Nothing here is a booking confirmation.</small></p>
+</div></footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ---------- helpers ---------- */
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const mapUrl=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+const tripUrl=q=>'https://www.tripadvisor.com/Search?q='+encodeURIComponent(q);
+const dirUrl=(a,b,m='transit')=>'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(a)+'&destination='+encodeURIComponent(b)+'&travelmode='+m;
+
+/* ---------- 1. THE TRANSPORT LEDGER ---------- */
+const legs=[
+{n:1,type:'Flight',date:'28',mon:'AUG',dow:'Friday',mode:'✈️ Arrival + city transfer',
+ title:'Land at Berlin BER 08:00 → cross to Berlin Südkreuz',
+ sub:'Berlin Brandenburg Airport → Berlin Südkreuz · ≈22 km · direct FEX/RE in ≈14 min · 3h15 of buffer',
+ sched:[
+  ['08:00','Wheels down at Berlin Brandenburg (BER)','Terminal 1. Allow 45–60 minutes for passport control, bags and a nappy change before you go anywhere.'],
+  ['09:00','Airport railway station','Directly beneath Terminal 1, lift access from arrivals. Buy a Berlin <b>ABC</b> ticket — the airport is zone C, Südkreuz is zone A.'],
+  ['09:25','Board FEX or RE towards Berlin Hbf','Since the new Dresdner Bahn opened in December 2025 these trains run direct via <b>Südkreuz</b> — the fast way into town.'],
+  ['09:40','Berlin Südkreuz','Breakfast, feed, reorganise your bags into "coach" and "hold". You have well over an hour.'],
+  ['11:15','RegioJet coach departs','From the coach bays on the Hildegard-Knef-Platz / Sachsendamm side of the station.']],
+ tf:{label:'Airport → coach departure point',
+  from:'Berlin Brandenburg Airport (BER), Terminal 1, 12529 Schönefeld',
+  to:'Berlin Südkreuz coach bays, Hildegard-Knef-Platz 2, 10829 Berlin',
+  dist:'≈22 km',modeName:'FEX or RE towards Berlin Hbf — direct, no change',time:'≈14 min ride · ≈35 min door to coach bay',
+  cost:'Berlin ABC single €5.00 pp (2026 VBB fare) — under-6s free',
+  steps:['Follow the signs down to <b>Flughafen BER Terminal 1-2</b> station, which is directly under the terminal, with lifts.',
+   'Take the <b>FEX airport express</b> (every 15 minutes) or any <b>RE towards Berlin Hbf</b>. Since 14 December 2025 they run over the new Dresdner Bahn and call at <b>Südkreuz after about 14 minutes</b>.',
+   'At Südkreuz, exit towards Hildegard-Knef-Platz / Sachsendamm for the long-distance coach bays.',
+   'Backup if the mainline is disrupted: <b>S9 towards the city</b>, change at Schöneweide or Baumschulenweg. Slow — 60 minutes plus — but it keeps moving.'],
+  note:'Ignore any guide that tells you to take the S45 from BER to Südkreuz. <b>The S45 was withdrawn in the December 2025 timetable change</b>, and the Dresdner Bahn replaced it with something far better: BER to Südkreuz is now roughly 14 minutes, and BER to Berlin Hbf about 23.',
+  flag:'If your flight is delayed, your RegioJet seats are tied to the 11:15 service. Check your fare\'s change conditions in the RegioJet app <b>now</b>, not on the day — a paid time change made in advance is far cheaper than a missed coach.'}},
+
+{n:2,type:'Coach',date:'28',mon:'AUG',dow:'Friday',mode:'🚌 RegioJet coach',
+ title:'Berlin Südkreuz 11:15 → Prague ÚAN Florenc 15:30',
+ sub:'4h15 · ≈350 km · reserved seats, steward service, free drink · then 3.3 km to Residence Vysta',
+ sched:[
+  ['11:00','At the coach bay','Coaches leave punctually. The pram goes in the hold — keep the carrier and the nappy bag with you.'],
+  ['11:15','Departure · Berlin Südkreuz','Hildegard-Knef-Platz 2, 10829 Berlin.'],
+  ['≈13:15','Dresden','Most Berlin–Prague services call here. A natural feed-and-change window.'],
+  ['≈14:10','Czech border','No passport check inside Schengen, but keep documents and the baby\'s passport reachable.'],
+  ['15:30','Arrival · Prague ÚAN Florenc','Křižíkova 4, 186 00 Praha 8. Covered terminal with toilets and a small shop.']],
+ tf:{label:'Coach terminal → hotel',
+  from:'ÚAN Florenc coach terminal, Křižíkova 4, 186 00 Praha 8',
+  to:'Residence Vysta, U Výstaviště 764/13, 170 00 Praha 7 – Holešovice',
+  dist:'≈3.3 km',modeName:'Metro C + tram · or taxi/Bolt',time:'≈20–25 min transit · ≈10 min taxi',
+  cost:'90-minute transit ticket ≈40 CZK pp · taxi or Bolt ≈250–320 CZK',
+  steps:['From the terminal follow the signs into <b>Florenc</b> metro station (lifts available).',
+   '<b>Metro C (red)</b> towards Letňany: Florenc → Vltavská → Nádraží Holešovice. Three stops, about 6 minutes.',
+   'At Nádraží Holešovice take <b>tram 6, 12 or 17</b> two stops to <b>Výstaviště Holešovice</b>, then walk about 200 m to the hotel.',
+   '<b>Strong recommendation:</b> after roughly 12 hours of travel, take a Bolt or taxi. Ten minutes, door to door, no stairs, no changes.'],
+  note:'Residence Vysta sits beside the Výstaviště fairgrounds and Stromovka park in Holešovice — 200 m from a tram stop, a genuinely quiet street, and the Letná viewpoint is a 15-minute walk for a first-evening sunset that costs nothing.'}},
+
+{n:3,type:'Coach',date:'30',mon:'AUG',dow:'Sunday',mode:'🚌 RegioJet coach',
+ title:'Prague ÚAN Florenc 17:00 → Berlin Südkreuz 21:15, then Meliá Berlin',
+ sub:'4h15 back to Berlin · late arrival, so the hotel transfer is one direct S-Bahn with no changes',
+ sched:[
+  ['09:30','Slow Prague morning','Old Town Square or Kampa. Nothing that needs a timed ticket.'],
+  ['13:30','Back at the hotel','Ask about a late checkout; otherwise leave the bags at reception and take a final walk.'],
+  ['16:00','Leave for Florenc','Reverse of your arrival route — roughly 25 minutes with luggage and a pram.'],
+  ['16:40','At ÚAN Florenc','Find the bay, feed the baby, buy dinner to take on board, board early.'],
+  ['17:00','Departure','4h15 ahead. There is no meal service worth relying on — bring your own.'],
+  ['21:15','Arrival · Berlin Südkreuz','Late, with a baby. Everything below is designed to be the simplest possible option.']],
+ tf:{label:'Coach terminal → hotel',
+  from:'Berlin Südkreuz, Hildegard-Knef-Platz 2, 10829 Berlin',
+  to:'Meliá Berlin, Friedrichstraße 103, 10117 Berlin-Mitte',
+  dist:'≈6.8 km',modeName:'S-Bahn S25 or S26 — direct, no change',time:'≈13 min ride + 2 min walk',
+  cost:'Berlin AB single €4.00 pp (2026 fare) · taxi ≈€22–28',
+  steps:['Walk from the coach bays into Südkreuz station and go up to the <b>S25 / S26</b> platform.',
+   'Ride northbound: Südkreuz → Yorckstraße → Anhalter Bahnhof → Potsdamer Platz → Brandenburger Tor → <b>Friedrichstraße</b>. Five stops, about 13 minutes.',
+   'Leave Friedrichstraße station on the Friedrichstraße exit. The hotel is roughly 100 m away, right on the Spree.',
+   'At 21:30 with a tired baby, a taxi for €25 is not indulgence, it is logistics. Both options are fine.'],
+  note:'Meliá Berlin is the best-located bed of the entire trip: Friedrichstraße station at the door, Museum Island ≈900 m, Reichstag ≈1.2 km, Brandenburg Gate ≈1.5 km. Your office commute and the 4 Sep departure both start from that one station.'}},
+
+{n:4,type:'Train',date:'04',mon:'SEP',dow:'Friday',mode:'🚄 ICE 148 · Deutsche Bahn',
+ title:'Berlin Hbf 08:16 → Amsterdam Centraal 14:00, then Zaandam',
+ sub:'5h44 in the seat · ≈660 km · the longest continuous leg of the trip',
+ sched:[
+  ['07:15','Leave Meliá Berlin','Settle the bill the night before if the hotel allows it.'],
+  ['07:25','Friedrichstraße → Berlin Hbf','S-Bahn S3/S5/S7/S9, <b>one stop, 3 minutes</b>. Or a pleasant 22-minute walk along the Spree if you are early.'],
+  ['07:45','At Berlin Hbf','Check the coach-position display on the platform. Getting a pram to the right carriage matters on a train this long.'],
+  ['08:16','Departure · ICE 148','Direct to Amsterdam via Spandau, Stendal, Hannover, Osnabrück, Bad Bentheim, Hengelo, Deventer and Amersfoort.'],
+  ['≈11:00','Hannover → Osnabrück','Roughly halfway. ICE trains have a baby-change compartment — use it here rather than waiting.'],
+  ['≈12:20','Bad Bentheim · DE/NL border','The locomotive is changed and the train stands for a few minutes. Completely normal, not a delay.'],
+  ['14:00','Arrival · Amsterdam Centraal','Terminus, so there is no rush to get off. Regroup on the platform.']],
+ tf:{label:'Station → hotel',
+  from:'Amsterdam Centraal, Stationsplein, 1012 AB Amsterdam',
+  to:'Best Western Zaan Inn, Grenehout 22, 1507 EB Zaandam',
+  dist:'≈13 km by rail',modeName:'NS Sprinter / Intercity, direct',time:'11–13 min ride + 3 min walk',
+  cost:'≈€3.60 pp — just tap a contactless card in and out (OVpay)',
+  steps:['Stay inside Amsterdam Centraal and head for the platforms signed <b>Zaandam / Alkmaar / Hoorn</b>. Several departures every hour.',
+   'Ride 11–13 minutes: Amsterdam Centraal → Amsterdam Sloterdijk → <b>Zaandam</b>.',
+   'Exit Zaandam station on the Inntel / shopping-centre side. The hotel is about 250 m away, flat and partly covered.',
+   'No ticket machine needed: tap any contactless bank card on the NS gates. Children under 4 travel free.'],
+  note:'This is the quiet genius of your Amsterdam booking. From the same Zaandam platform, Amsterdam Centraal is 12 minutes one way and <b>Zaandijk Zaanse Schans is 6 minutes the other way</b>. Central Amsterdam prices, countryside on tap.',
+  flag:'Pack lunch at Berlin Hbf before boarding. Queuing at the on-board bistro with a 4-month-old on a 5h44 run is a bad plan, and the trolley service is not guaranteed.'}},
+
+{n:5,type:'Coach',date:'07',mon:'SEP',dow:'Monday',mode:'🚌 FlixBus',
+ title:'Amsterdam Sloterdijk 10:00 → Brussels-North 13:00',
+ sub:'≈3h · ≈215 km · then the shortest hotel transfer of the trip: an 800 m walk',
+ sched:[
+  ['08:30','Breakfast at the hotel, then check out','You only need a 7-minute train, so this is a genuinely relaxed morning.'],
+  ['09:05','Zaandam → Amsterdam Sloterdijk','Train, one stop, about 7 minutes. Hotel to platform is 3 minutes.'],
+  ['09:30','At the Sloterdijk coach bays','On the Piarcoplein side of the station. Be 20 minutes early — FlixBus does not wait.'],
+  ['10:00','Departure · FlixBus','Most services run via Rotterdam and Antwerp. One scheduled comfort break on the way.'],
+  ['13:00','Arrival · Brussels-North coach terminal','Rue du Progrès / Vooruitgangstraat, immediately beside Bruxelles-Nord railway station.']],
+ tf:{label:'Coach terminal → hotel',
+  from:'Brussels-North coach terminal, Rue du Progrès, 1030 Schaerbeek, Brussels',
+  to:'Condo Gardens Brussels, Jollystraat 141, 1030 Schaarbeek, Brussels',
+  dist:'≈800 m',modeName:'Walk — no transport needed',time:'≈10 min on foot',cost:'€0',
+  steps:['Leave the coach terminal on the Rue du Progrès side and head north-east into Schaerbeek.',
+   'About 800 m of flat pavement with no steps — comfortable with a pram and cases.',
+   'Prefer to ride? Trams 92/93 and several buses run one stop from Bruxelles-Nord towards Masui; a single STIB ticket covers it.',
+   'With heavy bags a taxi is 4 minutes and roughly €10.'],
+  note:'Condo Gardens is a converted factory with apartment-style units, a garden and a barbecue terrace. The kitchenette is the real win: bottle washing and sterilising without hunting for a hotel kettle. Grand-Place is ≈2.5 km, or about 10 minutes by metro/tram from Bruxelles-Nord.'}},
+
+{n:6,type:'Coach',date:'09',mon:'SEP',dow:'Wednesday',mode:'🚌 FlixBus',
+ title:'Brussels-North 09:30 → Paris Bercy Seine 13:45',
+ sub:'≈4h15 · ≈310 km · then the trickiest transfer of the trip — read this one twice',
+ sched:[
+  ['08:00','Breakfast, then check out','No transit needed: the coach terminal is a 10-minute walk.'],
+  ['09:00','Walk to Brussels-North terminal','The same 800 m in reverse. Leave a real margin.'],
+  ['09:10','At the bay','This is the leg with the least slack in the whole itinerary. Be early.'],
+  ['09:30','Departure · FlixBus','≈310 km south through northern France, with one comfort stop.'],
+  ['13:45','Arrival · Paris Bercy Seine','Coach stop on Quai de Bercy beside Gare de Bercy, 75012 Paris.']],
+ tf:{label:'Coach stop → hotel',
+  from:'Paris Bercy Seine coach stop, Quai de Bercy, 75012 Paris',
+  to:'Résidence Internationale de Paris, 44 Rue Louis Lumière, 75020 Paris',
+  dist:'≈8.5 km by road',modeName:'Taxi / Uber recommended · step-free transit alternative below',
+  time:'20–25 min by taxi · 40–45 min by transit',cost:'≈€22–30 taxi · ≈€4.30 pp transit',
+  steps:['<b>Recommended:</b> take a taxi from the rank beside Gare de Bercy. Luggage plus a pram plus a 4-month-old plus the Paris Métro is the worst combination on this trip.',
+   '<b>Step-free transit option:</b> Métro 6 Bercy → Nation (4 stops), Métro 1 → Porte de Vincennes (2 stops), then <b>tram T3b</b> north to <b>Marie de Miribel</b> (3 stops) and walk ≈250 m. The tram is street-level and pram-friendly.',
+   '<b>Fastest transit option:</b> Métro 6 → Nation, Métro 2 → Père Lachaise, Métro 3 → Porte de Bagnolet, then an 8-minute walk. Quicker, but two changes and a lot of stairs.',
+   'From tomorrow the T3b stop at your door and Métro 3 five minutes away become your daily routine — the pain is only on arrival day.'],
+  flag:'Métro lines 1, 2, 3 and 6 are largely <b>not</b> step-free. Do not plan to carry a pram and two suitcases through them. On 9 Sep arriving and 12 Sep departing, take the taxi.'}},
+
+{n:7,type:'Train',date:'12',mon:'SEP',dow:'Saturday',mode:'🚄 Eurostar ER 9411 (ex-Thalys)',
+ title:'Paris Gare du Nord 07:45 → Köln Hbf 11:15',
+ sub:'3h30 high-speed · train ER 9411 · gates close 30 minutes before departure',
+ sched:[
+  ['06:00','Wake, feed, final pack','Everything should already be packed from the night before.'],
+  ['06:30','Taxi to Gare du Nord','≈7.5 km, 25–30 minutes at that hour. Pre-book it the previous evening.'],
+  ['07:05','At Gare du Nord','Eurostar / ex-Thalys departures are on the mezzanine above the main hall. <b>Ticket gates close at 07:15 — 30 minutes before departure.</b>'],
+  ['07:45','Departure · ER 9411','Paris Gare du Nord, direct to Köln Hbf.'],
+  ['≈09:00','Brussels-Midi','A brief stop. You will have crossed Belgium twice by now.'],
+  ['≈10:20','Liège → Aachen','Then the high-speed run down into the Rhineland.'],
+  ['11:15','Arrival · Köln Hauptbahnhof','Walk out of the north exit and the Cathedral is directly in front of you. It never stops being startling.']],
+ tf:{label:'Station → hotel',
+  from:'Köln Hauptbahnhof, Trankgasse 11, 50667 Köln',
+  to:'Hotel Boulevard, Hansaring 14, 50670 Köln (Altstadt-Nord)',
+  dist:'≈1.3 km',modeName:'Walk, or one S-Bahn stop',time:'≈16 min walk · ≈6 min by rail + 4 min walk',
+  cost:'€0 on foot · KVB short-trip ticket if you ride · taxi ≈€10–12',
+  steps:['<b>On foot:</b> leave Hbf via Breslauer Platz and follow Johannisstraße into the Hansaring. Flat, direct, about 16 minutes.',
+   '<b>By rail:</b> any S-Bahn or regional service towards <b>Köln Hansaring</b> — one stop, 3 minutes — then a 350 m walk.',
+   'Taxi is 5–6 minutes and roughly €10–12 if the weather has turned.',
+   'Drop the bags and walk straight back towards the Dom: it is only 1.2 km from the hotel, so you lose nothing by staying on the ring.'],
+  note:'Hotel Boulevard sits on the Hansaring, part of Cologne\'s green ring boulevard, with the MediaPark lake 350 m away for a quiet pram loop and the Cathedral about a 15-minute walk.',
+  flag:'<b>Departure is 07:45 on train ER 9411</b>, arriving Köln Hbf at 11:15. Gates close 30 minutes before departure, at 07:15, and there is no appeal — be inside Gare du Nord by 07:05.'}},
+
+{n:8,type:'Train',date:'13',mon:'SEP',dow:'Sunday',mode:'🚄 ICE 557 · Deutsche Bahn',
+ title:'Köln Hbf 10:44 → Berlin Hbf 14:55, then Premier Inn Berlin Airport',
+ sub:'4h11 · ≈575 km · the final leg, deliberately followed by an empty afternoon',
+ sched:[
+  ['08:30','Breakfast and pack','No sightseeing today. This day is your buffer and that is its whole job.'],
+  ['10:00','To Köln Hbf','A 16-minute walk, or one S-Bahn stop from Hansaring.'],
+  ['10:20','On the platform','Check the coach-position display for your reserved carriage.'],
+  ['10:44','Departure · ICE 557','Direct to Berlin via Hamm, Bielefeld, Hannover and Wolfsburg.'],
+  ['≈12:50','Hannover','The longest scheduled stop and a good moment to stand up and reset.'],
+  ['14:55','Arrival · Berlin Hauptbahnhof','One transfer left in the entire trip.']],
+ tf:{label:'Station → airport hotel',
+  from:'Berlin Hauptbahnhof, Europaplatz 1, 10557 Berlin',
+  to:'Premier Inn Berlin Airport, Alexander-Meißner-Straße 2, 12526 Berlin-Bohnsdorf',
+  dist:'≈22 km',modeName:'S-Bahn S9 — direct, no change',time:'≈45 min ride + 6 min walk · 30–35 min taxi',
+  cost:'Berlin AB single €4.00 pp (Grünbergallee is zone B) · taxi ≈€50–60',
+  steps:['<b>Simplest route, and it needs no changes:</b> <b>S9 towards Flughafen BER</b> from Berlin Hbf, all the way to <b>Grünbergallee</b> — about 45 minutes, then ≈400 m on foot.',
+   'The S9 runs the Stadtbahn, so you can also catch it at Friedrichstraße, Alexanderplatz or Ostkreuz if your plans shift.',
+   '<b>Faster but with a change:</b> FEX to Flughafen BER (≈23 min), then S9 back north <b>three stops</b> — Waßmannsdorf, Schönefeld, Grünbergallee, about 11 minutes. Needs an ABC ticket.',
+   'After 17 nights and nine legs, a taxi is a completely reasonable way to end the trip.'],
+  note:'≈400 m to S Grünbergallee, roughly 8 km from BER by road. Note the hotel itself sits in fare zone <b>B</b>; only the airport end of the journey is zone C, so tomorrow you need an ABC or a BC ticket.',
+  flag:'<b>Verify this train before you travel.</b> The Hannover–Berlin high-speed line has repeated engineering works through 2026, including a window covering the weekend of 12–14 September, and international services via Hannover are being retimed or rerouted. Check ICE 557 on <a href="https://www.bahn.com/en" target="_blank" rel="noopener noreferrer">bahn.com</a> a few days before, and again the night before.'}},
+
+{n:9,type:'Flight',date:'14',mon:'SEP',dow:'Monday',mode:'✈️ Departure · BER → BLR',
+ title:'Premier Inn 06:15 → BER Terminal 1 → flight to Bengaluru 09:40',
+ sub:'≈8 km to the terminal · inside Terminal 1 by 06:45 · long-haul with an infant, so this morning is built backwards from the gate',
+ sched:[
+  ['05:15','Wake, feed, final pack','Everything except the nappy bag should be closed and by the door from last night.'],
+  ['05:45','Breakfast or a takeaway coffee','The Premier Inn restaurant opens early on weekdays; if it is not open yet, eat airside after security.'],
+  ['06:15','Leave the hotel','Taxi from the door (≈15 min) or walk ≈400 m to S Grünbergallee for the S9.'],
+  ['06:45','At BER Terminal 1','Roughly 3 hours before departure. For a long-haul connection with an infant this is the right amount, not excessive.'],
+  ['07:00','Bag drop and pram tag','Ask for the pram to be gate-tagged so you keep it until boarding, and reconfirm your bassinet or bulkhead seat.'],
+  ['07:30','Security, then a feed','Baby milk, formula and water for the baby are exempt from the 100 ml rule — take them out of the bag and declare them.'],
+  ['08:50','At the gate','Board early with an infant: airlines let you pre-board, and the overhead space near your seat is gone within minutes.'],
+  ['09:40','Departure · BER → Bengaluru','One stop en route. Feed on the climb and on each descent — this is where it actually matters.']],
+ tf:{label:'Hotel → airport terminal',
+  from:'Premier Inn Berlin Airport, Alexander-Meißner-Straße 2, 12526 Berlin-Bohnsdorf',
+  to:'Berlin Brandenburg Airport (BER) Terminal 1, Melli-Beese-Ring 1, 12529 Schönefeld',
+  dist:'≈8 km by road · 3 S-Bahn stops',modeName:'Taxi (recommended) · or S9 from Grünbergallee',
+  time:'≈15 min taxi · ≈11 min ride + ≈6 min walk each end',
+  cost:'Taxi ≈€20–28 · Berlin ABC single €5.00 pp',
+  steps:['<b>Recommended with luggage, a pram and a 4-month-old:</b> a taxi from the hotel door. Book it at reception the night before for 06:15. Fifteen minutes, no platforms, no lift-hunting.',
+   '<b>By S-Bahn:</b> ≈400 m to <b>S Grünbergallee</b>, then <b>S9 towards Flughafen BER</b> — three stops via Schönefeld and Waßmannsdorf, about 11 minutes. The BER station sits directly under Terminal 1 with lifts up to check-in.',
+   '<b>Buy an ABC ticket</b> for the S-Bahn: the hotel is in zone B, the airport is in zone C.',
+   'Do not plan around a single early train. S9 frequency in the early morning is thin and it is the only S-Bahn line at Grünbergallee since the S45 was withdrawn — if it is delayed you have no second option except a taxi.'],
+  note:'Terminal check: BER has Terminal 1 and Terminal 2, and they are separate buildings sharing one railway station. Almost all full-service and long-haul carriers use <b>T1</b>; T2 is used by some low-cost airlines. Your boarding pass and the BER app will confirm which one, and the walk between them is about 10 minutes.',
+  flag:'<b>There is no non-stop Berlin → Bengaluru flight.</b> Yours will connect once — typically via Frankfurt, Munich, Istanbul, Doha, Dubai or Delhi. Two things follow: check whether your bags are through-checked to BLR, and check the connection time. Anything under 90 minutes at a big hub with a pram and a baby is uncomfortably tight; if that is what you have, ask the airline now about a later connection on the same ticket.'}}
+];
+
+/* ---------- 2. HOTELS ---------- */
+const hotels=[
+['Prague','🇨🇿 Prague · Holešovice','Residence Vysta','U Výstaviště 764/13, 170 00 Praha 7 – Holešovice','28 → 30 Aug · 2 nights',
+ 'A restored early-1900s building in Holešovice, refurbished in 2009, with apartment-style rooms overlooking a courtyard or garden. Quiet street, residential feel, and a park on the doorstep.',
+ 'Arrive from ÚAN Florenc: Metro C to Nádraží Holešovice + tram to Výstaviště, ≈20–25 min. Taxi/Bolt ≈10 min.',
+ ['≈200 m to Výstaviště Holešovice tram stop (trams 6, 12, 17)','Nádraží Holešovice metro C ≈1 km','Stromovka park directly adjacent','Charles Bridge ≈2 km · Old Town Square ≈2.6 km','Letná viewpoint ≈15 min walk'],
+ 'Ask for a cot when you confirm — apartment-style stock means limited availability.','https://residencevysta.com/'],
+['Berlin','🇩🇪 Berlin · Mitte','Meliá Berlin','Friedrichstraße 103, 10117 Berlin-Mitte','30 Aug → 4 Sep · 5 nights',
+ 'Four-star hotel on Friedrichstraße right on the bank of the Spree, with river-view rooms and the Level lounge. The single best-placed hotel on the itinerary and the anchor for your office week.',
+ 'Arrive from Südkreuz: S25/S26 direct to Friedrichstraße, ≈13 min, then ≈100 m on foot.',
+ ['≈100 m to Friedrichstraße station (S-Bahn, U6, regional, trams)','Museum Island ≈900 m · Berlin Cathedral ≈1 km','Reichstag ≈1.2 km · Brandenburg Gate ≈1.5 km','Unter den Linden ≈400 m','Berlin Hbf one S-Bahn stop for the 4 Sep departure'],
+ 'Five nights in one bed is a gift with an infant. Unpack properly here.','https://www.melia.com/en/hotels/germany/berlin/melia-berlin'],
+['Amsterdam','🇳🇱 Amsterdam · Zaandam','Best Western Zaan Inn','Grenehout 22, 1507 EB Zaandam','4 → 7 Sep · 3 nights',
+ 'A three-star superior hotel built onto Zaandam station and its shopping centre, with an on-site restaurant and bar. It trades canal-side charm for unbeatable rail access and much lower prices.',
+ 'Arrive from Amsterdam Centraal: NS train to Zaandam, 11–13 min, then ≈250 m walk.',
+ ['≈250 m / 3 min to Zaandam station','Amsterdam Centraal 11–13 min by train','Zaandijk Zaanse Schans ≈6 min by train — one stop','Schiphol ≈25 min direct','Shops, supermarket and pharmacy in the attached centre'],
+ 'The attached shopping centre solves nappies, formula and pharmacy needs without a separate trip.','https://www.zaaninn.nl/'],
+['Brussels','🇧🇪 Brussels · Schaerbeek','Condo Gardens Brussels','Jollystraat 141, 1030 Schaarbeek, Brussels','7 → 9 Sep · 2 nights',
+ 'Apartment-style accommodation in a converted factory, with a garden and a barbecue terrace, a few minutes on foot from Brussels-North station. Kitchenette equipped units.',
+ 'Arrive from the Brussels-North coach terminal: ≈800 m, a 10-minute flat walk. No transport needed.',
+ ['≈800 m / 10 min walk to Bruxelles-Nord station and coach terminal','Grand-Place ≈2.5 km, ≈10 min by metro/tram','Trams 92/93 and buses one stop away','Kitchenette for bottles and sterilising','Garden and terrace for a pram nap'],
+ 'Best kitchen access of the trip. Do your baby-supply restock here.','https://www.condogardens.com/'],
+['Paris','🇫🇷 Paris · 20th arrondissement','Résidence Internationale de Paris','44 Rue Louis Lumière, 75020 Paris','9 → 12 Sep · 3 nights',
+ 'A large, simple, well-reviewed residence in eastern Paris with a breakfast buffet, a garden and luggage storage. Calm and secure rather than glamorous — which is exactly right with a baby.',
+ 'Arrive from Paris Bercy Seine: taxi ≈20–25 min (recommended), or Métro 6 + Métro 1 + tram T3b ≈40–45 min.',
+ ['≈250 m to tram T3b "Marie de Miribel" — step-free','≈500 m to Métro 3 Porte de Bagnolet','Père Lachaise ≈1 km on foot','Opéra ≈20 min by Métro 3','Garden and breakfast buffet on site'],
+ 'Staying in the 20th instead of the 7th is the biggest single saving in this budget.','https://www.residence-paris.com/'],
+['Cologne','🇩🇪 Cologne · Altstadt-Nord','Hotel Boulevard','Hansaring 14, 50670 Köln','12 → 13 Sep · 1 night',
+ 'An owner-run three-star superior hotel of about 27 rooms on the Hansaring, part of Cologne\'s ring boulevard, with parks and green space alongside and the old town within walking distance.',
+ 'Arrive from Köln Hbf: ≈16-minute flat walk, or one S-Bahn stop to Köln Hansaring then ≈350 m.',
+ ['≈350 m to Köln Hansaring station','≈1.3 km to Köln Hauptbahnhof','Cologne Cathedral ≈1.2 km · ≈15 min walk','MediaPark lake ≈350 m for a quiet pram loop','Rhine promenade ≈1.6 km'],
+ 'One night only, so keep the evening to a compact Dom → Rhine → old town loop.','https://hotelboulevard.de/'],
+['Berlin','🇩🇪 Berlin · Bohnsdorf (airport)','Premier Inn Berlin Airport','Alexander-Meißner-Straße 2, 12526 Berlin-Bohnsdorf','13 → 14 Sep · 1 night',
+ 'A functional, quiet, well-run budget hotel in Treptow-Köpenick with a restaurant on site. Its only purpose is to make the 14 Sep flight effortless, and it does.',
+ 'Arrive from Berlin Hbf: S9 direct to Grünbergallee, ≈45 min, then ≈400 m on foot. Or taxi ≈30–35 min.',
+ ['≈400 m / 5 min walk to S Grünbergallee (zone B)','BER Terminal 1-2 is three S-Bahn stops, ≈11 min','≈8 km to the terminal by road · taxi ≈15 min','ALDI supermarket directly opposite for last-minute supplies','Restaurant and bar on site — no need to go out'],
+ 'Book the 06:15 taxi at reception tonight. Your flight to Bengaluru is at 09:40.','https://www.premierinn.com/gb/en/hotels/germany/berlin/berlin/berlin-airport.html']
+];
+
+/* ---------- 3. DAY BY DAY ---------- */
+const IMG={prague:'https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1400&q=85',
+bridge:'https://commons.wikimedia.org/wiki/Special:FilePath/Charles_Bridge_Prague,_Czech_Republic.png?width=1200',
+berlin:'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=1400&q=85',
+ams:'https://www.civitatis.com/f/paises-bajos/amsterdam/galeria/visite-jordaan-amsterdam-2.jpg',
+zaanse:'https://images.unsplash.com/photo-1534313314376-a72289b6181e?auto=format&fit=crop&w=1400&q=85',
+brussels:'https://assets.micontenthub.com/traveloffers/travel-tips/brussels_Wa7LMmC1t.jpg',
+bruges:'https://i.natgeofe.com/n/36098bd5-cbd3-43d4-91ae-7c596fd55568/bruges_16x9.jpg',
+ghent:'https://www.gent-watertoerist.be/media/producten/xl/30/02-rondvaart40.jpg?t=1003',
+paris:'https://globaltours.s3.eu-west-3.amazonaws.com/product-images/eiffel-tower-view.webp',
+cologne:'https://lp-cms-production.imgix.net/2019-06/0f11e455cdf629e1c6809a96fc8cbd49-kolner-dom.jpg'};
+
+const days=[
+[1,'Fri 28 Aug','Berlin → Prague','Land at BER, coach to Prague, gentle first evening','🚄 Travel day','travel',IMG.prague,
+ [['08:00','Land at Berlin Brandenburg. Passport control, bags, first nappy change.'],
+  ['09:20','S45 from the airport station direct to Berlin Südkreuz.'],
+  ['10:00','Breakfast at Südkreuz. Repack into cabin bag and hold bag.'],
+  ['11:15','RegioJet coach departs Südkreuz.'],
+  ['≈13:15','Dresden stop — feed and change.'],
+  ['15:30','Arrive Prague ÚAN Florenc.'],
+  ['16:00','Taxi or Metro C + tram to Residence Vysta, Holešovice. Check in, unpack, breathe.'],
+  ['18:00','Optional and easy: Stromovka park next door, or the 15-minute walk up to Letná for a free skyline sunset.'],
+  ['19:30','Dinner in Holešovice. Do not attempt the Old Town tonight.']],
+ 'You will have been in motion for roughly 12 hours by the time you check in. The single best decision today is to do nothing ambitious after 16:00.'],
+[2,'Sat 29 Aug','Prague','Castle, St Vitus, Malá Strana and Charles Bridge at golden hour','🏰 Big day','sight',IMG.bridge,
+ [['08:30','Breakfast, then tram 12 or 17 towards Malostranská.'],
+  ['09:15','Prague Castle complex. Buy the circuit ticket only if you want St Vitus interior and the Old Royal Palace.'],
+  ['11:00','Castle viewpoints over the red roofs. Use the carrier here — cobbles and steps.'],
+  ['12:15','Lunch in Malá Strana, away from the main tourist street.'],
+  ['13:30','Back to the hotel for the baby window. Non-negotiable.'],
+  ['16:00','Kampa Island and the Lennon Wall. Flat, shaded, pram-friendly.'],
+  ['18:00','Charles Bridge at golden hour, walking east towards the Old Town.'],
+  ['19:30','Dinner near Staroměstská, then tram home.']],
+ 'Do the Castle in the morning and the Bridge in the evening. Reversing that puts you on the Bridge with the coach crowds and on the Castle hill in the heat.'],
+[3,'Sun 30 Aug','Prague → Berlin','Old Town morning, then the 17:00 coach back','🚄 Travel day','travel',IMG.prague,
+ [['08:00','Early Old Town Square before the crowds. The Astronomical Clock is quiet at this hour.'],
+  ['09:30','Optional: Vyšehrad for calm river views, or a second Charles Bridge crossing.'],
+  ['11:30','Lunch, then back to the hotel.'],
+  ['13:30','Baby window and pack.'],
+  ['16:00','Leave for ÚAN Florenc. Buy dinner for the coach at the terminal.'],
+  ['17:00','RegioJet departs for Berlin.'],
+  ['21:15','Arrive Berlin Südkreuz. S25/S26 direct to Friedrichstraße.'],
+  ['21:45','Check in at Meliá Berlin. Five nights in one bed starts now.']],
+ 'This is a deliberately light day. You are travelling in the evening and starting work tomorrow, so protect the morning and skip anything with a queue.'],
+[4,'Mon 31 Aug','Berlin','Office day 1 · Brandenburg Gate and Tiergarten for the other two','💼 Office week','office',IMG.berlin,
+ [['08:15','You: 10-minute walk down Friedrichstraße, or one S-Bahn stop to the office.'],
+  ['09:30','Her + baby: walk Unter den Linden west to Brandenburg Gate — about 1.5 km, flat, all pavement.'],
+  ['10:30','Reichstag exterior, then into Tiergarten. Café stop and a pram nap under the trees.'],
+  ['13:00','Lunch, then back to the hotel — it is only 1.5 km, so bailing out is always easy.'],
+  ['18:30','Together: Gendarmenmarkt or the Spree promenade behind the hotel. Dinner in Mitte.'],
+  ['20:30','Early night. Four office days is a marathon, not a sprint.']],
+ 'Meliá Berlin is why this week works. Everything on this list is within 1.5 km of the front door, so a bad baby morning costs you nothing but a short walk home.'],
+[5,'Tue 1 Sep','Berlin','Office day 2 · Museum Island and the Spree','💼 Office week','office',IMG.berlin,
+ [['09:30','Her + baby: 900 m east to Museum Island. Berlin Cathedral exterior, the Lustgarten, the colonnades.'],
+  ['11:00','Optional interior: the Neues Museum or Pergamon if the mood is right. Otherwise stay outside.'],
+  ['12:30','Lunch by the Spree, then Nikolaiviertel for the oldest streets in Berlin.'],
+  ['14:00','Hotel window.'],
+  ['18:30','Together: Brandenburg Gate at sunset — the light hits the quadriga beautifully in early September.'],
+  ['20:00','Dinner around Friedrichstraße or Hackescher Markt.']],
+ 'Museum Island is close enough to your hotel that you can do the outside for free, decide the baby is done, and be back in 15 minutes.'],
+[6,'Wed 2 Sep','Berlin','Office day 3 · Zoo Berlin and the Aquarium','💼 Office week','office',IMG.berlin,
+ [['09:15','Her + baby: S-Bahn from Friedrichstraße direct to Zoologischer Garten, about 12 minutes, no change.'],
+  ['09:45','Zoo Berlin. Wide flat paths, plenty of shade, prams everywhere. The Aquarium is the indoor fallback if it rains.'],
+  ['13:00','Lunch in the zoo or on Kurfürstendamm, then back for the nap.'],
+  ['18:30','Together: Potsdamer Platz — modern Berlin in 40 minutes, then dinner. Two S-Bahn stops home.'],
+  ['20:30','Back at the hotel.']],
+ 'This is the best solo-parent day of the week: one direct train, one big attraction, unlimited places to sit down.'],
+[7,'Thu 3 Sep','Berlin','Office day 4 · light day, pack for the 08:16 train','💼 Office week','office',IMG.berlin,
+ [['09:30','Her + baby: keep it small. Charlottenburg Palace gardens, or simply Tiergarten and Unter den Linden again.'],
+  ['12:30','Lunch, hotel, nap, and pack properly.'],
+  ['18:00','Together: relaxed dinner near the hotel. No sightseeing.'],
+  ['19:30','Lay out tomorrow morning: tickets on the phone, cabin bag, pram, and lunch bought tonight if you can.'],
+  ['21:00','Sleep. Tomorrow is 5h44 on a train.']],
+ 'Repeating a walk you already enjoyed beats squeezing in a new district the day before your longest travel leg.'],
+[8,'Fri 4 Sep','Berlin → Amsterdam','ICE 148, then Zaandam and a first Amsterdam evening','🚄 Travel day','travel',IMG.ams,
+ [['07:15','Check out of Meliá Berlin.'],
+  ['07:25','S-Bahn Friedrichstraße → Berlin Hbf, one stop.'],
+  ['08:16','ICE 148 departs. Table seat, snacks out, settle in.'],
+  ['≈11:00','Hannover. Change and feed while the train is calm.'],
+  ['14:00','Arrive Amsterdam Centraal.'],
+  ['14:30','Train to Zaandam, 12 minutes. Check in at Best Western Zaan Inn.'],
+  ['16:30','Optional and highly worth it: train back to Amsterdam Centraal and walk the Jordaan and Prinsengracht in the evening light.'],
+  ['20:00','Dinner in Amsterdam, then the 12-minute train home. Check the last departures before you settle in.']],
+ 'The evening return trip is optional. If the train day was rough, Zaandam itself has a pleasant riverside and the shopping centre downstairs — no shame in that.'],
+[9,'Sat 5 Sep','Amsterdam','The canal day: Jordaan, Nine Streets, Dam, and a cruise','🚶 Walking day','sight',IMG.ams,
+ [['08:30','Breakfast, then the 09:00 train to Amsterdam Centraal.'],
+  ['09:20','Jordaan before the crowds: Westerkerk, Bloemgracht, Prinsengracht.'],
+  ['10:45','Nine Streets, then Singel and the flower market.'],
+  ['12:00','Dam Square and lunch.'],
+  ['13:30','Train back to Zaandam for the baby window — 12 minutes each way makes this genuinely practical.'],
+  ['16:30','Back in Amsterdam for a covered canal cruise. The single best-value hour with an infant: seated, shaded, and the city comes to you.'],
+  ['18:30','Magere Brug and the Amstel, or Vondelpark if you want green space.'],
+  ['20:00','Dinner, then the train home.']],
+ 'Book the canal cruise for late afternoon. Low sun on the gables is the whole point, and a moving boat is the most reliable nap generator in the Netherlands.'],
+[10,'Sun 6 Sep','Zaandam + Amsterdam','Zaanse Schans windmills — one train stop away','🌿 Scenic day','sight',IMG.zaanse,
+ [['09:00','Train from Zaandam to Zaandijk Zaanse Schans — one stop, about 6 minutes.'],
+  ['09:20','Walk across to the Zaanse Schans. Working windmills, wooden houses, the Zaan river. Arrive early and you get it almost to yourselves.'],
+  ['11:30','Windmill interior, cheese and clog workshops, riverside path. Flat and pram-friendly throughout.'],
+  ['13:00','Lunch, then train back to the hotel for the nap.'],
+  ['16:00','Choose your evening: Museumplein and Vondelpark in Amsterdam, or a slow walk along the Zaan in Zaandam.'],
+  ['19:30','Dinner. Remember Sunday shop closures in the Netherlands are lighter than Germany but supermarkets still shut early.']],
+ 'This replaces Giethoorn. Without a car, Giethoorn is a 5–6 hour round trip; Zaanse Schans is 12 minutes and delivers the same water-and-windmill scenery. Check dezaanseschans.nl first: a €17.50 entry fee was announced for spring 2026 and then dropped, but individual windmills and museums are ticketed either way.'],
+[11,'Mon 7 Sep','Amsterdam → Brussels','FlixBus at 10:00, then Grand-Place in the evening','🚄 Travel day','travel',IMG.brussels,
+ [['08:30','Breakfast, check out.'],
+  ['09:05','Train Zaandam → Amsterdam Sloterdijk, one stop.'],
+  ['09:30','At the Sloterdijk coach bays, 20 minutes early.'],
+  ['10:00','FlixBus departs for Brussels.'],
+  ['13:00','Arrive Brussels-North. Walk 800 m to Condo Gardens, Schaerbeek.'],
+  ['14:00','Check in, unpack, use the kitchenette to restock and sterilise.'],
+  ['16:30','Metro or tram from Bruxelles-Nord to the centre. Grand-Place, Galeries Royales Saint-Hubert, Manneken Pis.'],
+  ['18:30','Mont des Arts for the classic view back over the city, then dinner.'],
+  ['20:30','Back to Schaerbeek.']],
+ 'Grand-Place at dusk with the guild-house facades lit is one of the great free sights in Europe and it takes 20 minutes. Do not skip it just because it is an arrival day.'],
+[12,'Tue 8 Sep','Ghent + Bruges','Two medieval cities, one train line, one day','🏰 Day trip','sight',IMG.bruges,
+ [['08:00','Walk to Bruxelles-Nord and take the intercity to Gent-Sint-Pieters, about 32 minutes.'],
+  ['09:00','Tram or a 25-minute walk into central Ghent.'],
+  ['09:30','Graslei and Korenlei in morning light, then St Michael\'s Bridge for the skyline, then Gravensteen castle.'],
+  ['12:00','Lunch on the Korenmarkt. Try waterzooi.'],
+  ['13:30','Train Ghent → Bruges, about 27 minutes. Pram nap on board.'],
+  ['14:30','Bruges: Markt, Burg, Rozenhoedkaai, the Dijver canals, Minnewater and the Begijnhof.'],
+  ['18:00','Bruges after the day-trippers leave is the best hour of the day. Stay for it.'],
+  ['19:30','Train back to Brussels, about 1 hour. Late dinner or a quiet one near the hotel.']],
+ 'If the morning goes badly, drop Ghent and give Bruges the entire day — it is a single 1-hour train from Brussels and it comfortably fills eight hours.'],
+[13,'Wed 9 Sep','Brussels → Paris','FlixBus at 09:30, then settle into the 20th','🚄 Travel day','travel',IMG.paris,
+ [['08:00','Breakfast, check out.'],
+  ['09:00','Walk 800 m to the Brussels-North coach terminal.'],
+  ['09:30','FlixBus departs for Paris.'],
+  ['13:45','Arrive Paris Bercy Seine. Take a taxi to the hotel — this is the day to spend the €25.'],
+  ['14:30','Check in at Résidence Internationale de Paris. Unpack, feed, rest.'],
+  ['17:00','Gentle local orientation: Père Lachaise is about 1 km away and is quiet, green and shaded.'],
+  ['19:00','Optional if energy holds: tram T3b + Métro to Trocadéro for your first Eiffel view around sunset (≈20:00 in mid-September).'],
+  ['21:00','Dinner locally. Do not force the Eiffel tonight if anyone is flagging — you have two more evenings.']],
+ 'Learn your local transit tonight: the T3b tram stop 250 m away is step-free, Métro 3 is 500 m away and faster. You will use both every day.'],
+[14,'Thu 10 Sep','Paris','Eiffel, Trocadéro, the Seine and Invalides','🗼 Big day','sight',IMG.paris,
+ [['08:15','Métro 3 towards the centre, then across to Trocadéro. Aim to be there by 09:00.'],
+  ['09:00','Trocadéro terrace — the best free Eiffel view in Paris and near-empty at this hour.'],
+  ['09:45','Down to the Seine and Pont de Bir-Hakeim, then Champ de Mars beneath the tower.'],
+  ['11:30','Decide honestly: go up the tower only if it genuinely matters to you. With a 4-month-old, the queue costs more than the view returns.'],
+  ['12:30','Lunch near Rue Cler, then back to the hotel for the window. Yes, it is a 30-minute ride. Do it anyway.'],
+  ['16:30','Invalides, then Pont Alexandre III — the most ornate bridge in the city.'],
+  ['18:00','Tuileries Garden and the Louvre courtyard from outside. Chairs, gravel, shade, no tickets.'],
+  ['20:00','Dinner, then home. The tower sparkles for five minutes on the hour after dark.']],
+ 'Trocadéro first, Champ de Mars second, and the tower itself optional. That ordering gets you every photograph people actually want without a single queue.'],
+[15,'Fri 11 Sep','Paris','Montmartre, Sacré-Cœur, Arc de Triomphe','🥐 Classic Paris','sight',IMG.paris,
+ [['08:30','Métro 3 to a change for Montmartre. Get there before 09:30 and it is a village again.'],
+  ['09:30','Sacré-Cœur and the terrace view across the whole city. Use the funicular rather than the steps with a pram.'],
+  ['10:30','Place du Tertre and the back streets — Rue de l\'Abreuvoir, Rue Lepic.'],
+  ['12:00','Lunch in Montmartre, then back to the hotel for the nap.'],
+  ['16:00','Arc de Triomphe from the Champs-Élysées side, then walk the boulevard down towards Concorde.'],
+  ['18:00','Optional Seine cruise from Pont de l\'Alma — an hour sitting down with the whole city passing by.'],
+  ['20:00','Last Paris dinner. Le Marais and Île de la Cité are alternatives if you want to swap the cruise.'],
+  ['21:30','Home and pack — tomorrow starts at 06:00.']],
+ 'Pack tonight, completely. Tomorrow you have an early taxi and a train with gates that close 30 minutes before departure.'],
+[16,'Sat 12 Sep','Paris → Cologne','High-speed to the Rhineland, then the Dom at dusk','🚄 Travel day','travel',IMG.cologne,
+ [['06:00','Wake, feed, final checks.'],
+  ['06:30','Pre-booked taxi to Gare du Nord, about 25–30 minutes.'],
+  ['07:05','At the station. Eurostar departures are on the mezzanine. Gates close at 07:15, 30 minutes before departure.'],
+  ['07:45','Depart on Eurostar ER 9411.'],
+  ['11:15','Arrive Köln Hbf. Walk out and the Cathedral is immediately in front of you.'],
+  ['11:40','Walk 1.3 km to Hotel Boulevard on the Hansaring, or one S-Bahn stop. Drop bags.'],
+  ['13:00','Lunch, then a short rest.'],
+  ['15:30','Cologne Cathedral — the interior is free, vast and cool. Skip the 533-step tower.'],
+  ['16:30','Hohenzollern Bridge and the love locks, then across to the Rheinboulevard steps.'],
+  ['17:30','Optional: KölnTriangle observation deck for the definitive Dom-and-Rhine panorama.'],
+  ['19:00','Dinner in the Altstadt. Try a Kölsch and a half-metre of currywurst-adjacent regret.']],
+ 'One night in Cologne is enough if you keep it to a single loop: Dom → Hohenzollern Bridge → Rheinboulevard → Altstadt. All of it is within 2 km.'],
+[17,'Sun 13 Sep','Cologne → Berlin','ICE 557 home, then nothing at all','🛟 Buffer day','free',IMG.berlin,
+ [['08:30','Breakfast and pack. A last stroll to the MediaPark lake 350 m away if you want air.'],
+  ['10:00','Walk or ride to Köln Hbf.'],
+  ['10:44','ICE 557 departs for Berlin.'],
+  ['≈12:50','Hannover. Stand up, stretch, change the baby.'],
+  ['14:55','Arrive Berlin Hbf.'],
+  ['15:30','Transfer to Premier Inn Berlin Airport: S9 direct from Berlin Hbf to Grünbergallee, ≈45 min, then ≈400 m on foot. Or a taxi, 30–35 min.'],
+  ['16:30','Check in. Repack for the flight: liquids, formula, documents, passports, pram tags.'],
+  ['18:00','Eat at the hotel restaurant. Book the 06:15 taxi at reception for tomorrow\'s 09:40 flight.'],
+  ['20:30','Sleep. Tomorrow is a long-haul day with a 4-month-old.']],
+ 'This day has no sightseeing and that is intentional. One job today: get to the airport hotel and repack for a long-haul flight. Do check ICE 557 on bahn.com before you leave Cologne — the Hannover–Berlin line has engineering works around this weekend.'],
+[18,'Mon 14 Sep','Berlin → Bengaluru','Flight BER → BLR at 09:40','✈️ Departure','travel',IMG.berlin,
+ [['05:15','Wake, feed, final pack. Nappy bag stays out; everything else is closed.'],
+  ['05:45','Quick breakfast at the hotel, or coffee to go and eat airside instead.'],
+  ['06:15','Pre-booked taxi from the hotel door, ≈8 km, about 15 minutes. Or ≈400 m walk to S Grünbergallee and S9 three stops to the airport.'],
+  ['06:45','At BER Terminal 1 — just under three hours before departure. Check your boarding pass for T1 vs T2 first.'],
+  ['07:00','Bag drop. Ask for the pram to be gate-tagged, and reconfirm the bassinet or bulkhead seat for the long leg.'],
+  ['07:30','Security. Baby milk, formula and water for the baby are exempt from the 100 ml liquid rule — declare them and take them out.'],
+  ['08:00','Breakfast airside. Fill bottles after security, not before.'],
+  ['08:50','At the gate. Take the pre-boarding offer; getting settled before the cabin fills is worth more than an extra 20 minutes sitting down.'],
+  ['09:40','Wheels up for Bengaluru, connecting once en route. Feed on the climb and on every descent.'],
+  ['Done','Eighteen days, five countries, nine legs, seven hotels, one very well-travelled 4-month-old.']],
+ 'Everything today is built backwards from 09:40. Book the taxi at reception tonight — S9 frequency before 06:00 is thin, and it is now the only S-Bahn line at Grünbergallee since the S45 was withdrawn.']
+];
+
+/* ---------- 4. CITY PLAYBOOKS ---------- */
+const cities={
+'Prague':{flag:'🇨🇿',dates:'28 → 30 Aug · 2 nights',hotel:'Residence Vysta, Holešovice',hero:IMG.prague,
+ base:'Holešovice (Prague 7) — residential, green, 200 m from a tram stop and next to Stromovka park.',
+ transit:'Buy a <b>24-hour or 72-hour Prague transit pass</b> at any metro machine and stop thinking about tickets. Metro C runs from Nádraží Holešovice straight to Florenc and Muzeum; trams 6, 12 and 17 connect you to Malá Strana and the river. Most major tram and bus routes are pram-accessible according to Prague City Tourism.',
+ must:['Prague Castle','St Vitus Cathedral','Charles Bridge','Old Town Square','Astronomical Clock','Malá Strana','Kampa Island'],
+ scenic:['Letná Park viewpoint','Vyšehrad','Stromovka park','Vltava riverside at Kampa','Petřín hill'],
+ food:['Svíčková','Czech goulash in bread','Chlebíčky open sandwiches','Trdelník','Kolache pastries','Pilsner in a proper pub'],
+ do:['Start Charles Bridge before 08:00 or after 18:00 — never at midday.','Use the carrier on cobbles and castle steps, not the pram.','Take the tram up and walk down. Prague is a downhill city if you plan it.','Sit down for coffee more often than feels necessary.'],
+ dont:['Don\'t buy the full castle circuit ticket unless you actually want the interiors.','Don\'t stack tower climbs — Old Town, Petřín and St Vitus are all stairs.','Don\'t eat on Old Town Square. Walk two streets away and halve the price.','Don\'t assume every metro exit has a lift; check the platform signs.'],
+ baby:'Very good with a transit pass and a slow schedule. The historic core is cobbled, so alternate pram and carrier. Holešovice gives you a quiet base and park space for naps.',
+ skip:'Anything requiring a timed ticket on 30 Aug. You have a 17:00 coach.',
+ links:[['Prague City Tourism','https://prague.eu/en/'],['Prague for children','https://prague.eu/en/kids'],['Prague public transport (DPP)','https://www.dpp.cz/en']]},
+'Berlin':{flag:'🇩🇪',dates:'30 Aug → 4 Sep · 5 nights + 13 Sep · 1 night',hotel:'Meliá Berlin (Mitte) · Premier Inn Berlin Airport (13 Sep)',hero:IMG.berlin,
+ base:'Friedrichstraße, Mitte — on the Spree, 100 m from a major station, and inside walking distance of most of historic Berlin.',
+ transit:'The old 7-day travelcard was <b>withdrawn on 1 January 2026</b>, so buy <b>24-hour AB cards</b> on your busy days and €4.00 AB singles on the quiet ones; add zone C only for the airport runs. Friedrichstraße gives you S-Bahn, U6, regional trains and trams from one building. Berlin\'s stations are overwhelmingly lift-equipped, which makes it the easiest pram city on this trip.',
+ must:['Brandenburg Gate','Reichstag','Museum Island','Berlin Cathedral','Unter den Linden','Gendarmenmarkt','Potsdamer Platz','East Side Gallery'],
+ scenic:['Tiergarten','Spree promenade at Friedrichstraße','Nikolaiviertel','Charlottenburg Palace gardens','Oberbaum Bridge at sunset'],
+ food:['Currywurst','Döner','Pretzel and a proper bakery breakfast','Schnitzel','Berliner doughnut','Käsekuchen and coffee'],
+ do:['Keep the solo-parent days inside a 2 km radius of the hotel.','Do Museum Island exteriors free, and only pay for one interior.','Use the Spree promenade behind the hotel for evening walks with the pram.','Book the Reichstag dome online in advance if you want it — it sells out.'],
+ dont:['Don\'t plan a solo-parent day that needs two train changes.','Don\'t save all the sightseeing for the evenings — you will be tired.','Don\'t schedule anything on 13 Sep. That night is purely airport logistics.','Don\'t forget shops close on Sundays.'],
+ baby:'The best baby city on the route: flat, lift-equipped, spacious pavements and parks everywhere. Zoo Berlin is a direct 12-minute S-Bahn ride from your door.',
+ skip:'Sachsenhausen, Potsdam and anything more than 45 minutes out. You are here to work, not to commute.',
+ links:[['visitBerlin','https://www.visitberlin.de/en'],['Berlin with 0–3 year olds','https://www.visitberlin.de/en/berlin-children-0-3-years'],['BVG tickets','https://www.bvg.de/en/tickets-and-fares'],['Zoo Berlin','https://www.zoo-berlin.de/en'],['Berlin Brandenburg Airport','https://ber.berlin-airport.de/en.html']]},
+'Amsterdam':{flag:'🇳🇱',dates:'4 → 7 Sep · 3 nights',hotel:'Best Western Zaan Inn, Zaandam',hero:IMG.ams,
+ base:'Zaandam, attached to the station. Amsterdam Centraal is 12 minutes south; Zaanse Schans is 6 minutes north.',
+ transit:'Tap a <b>contactless bank card</b> on the NS gates (OVpay) — no tickets, no top-ups, and under-4s ride free. Inside Amsterdam, GVB trams take the same contactless tap. Nothing on this leg needs planning beyond checking last-train times.',
+ must:['Jordaan','Prinsengracht','Nine Streets','Dam Square','Canal cruise','Zaanse Schans','Magere Brug'],
+ scenic:['Zaanse Schans windmills','Vondelpark','Brouwersgracht','Amstel river at dusk','Zaan riverside in Zaandam'],
+ food:['Stroopwafel, fresh off the iron','Dutch apple pie with cream','Poffertjes','Patat with sauce','Aged Gouda','Indonesian rijsttafel','Bitterballen'],
+ do:['Do the canals before 10:00. Amsterdam is a different city at that hour.','Book a covered evening canal cruise — best value hour of the trip with an infant.','Use the 12-minute train as a feature: go back for the nap and return refreshed.','Check the last train from Centraal to Zaandam before your evening plans.'],
+ dont:['Don\'t attempt Giethoorn without a car. It is a 5–6 hour round trip.','Don\'t walk in the bike lanes. Really.','Don\'t leave the pram near a canal edge unbraked.','Don\'t queue on the day for the Anne Frank House — it is timed-entry online only.'],
+ baby:'Excellent. Flat, lift-equipped, and boats give you seated sightseeing. Cobbles appear on canal streets, so the carrier is still useful.',
+ skip:'Giethoorn and the Keukenhof (out of season anyway). Zaanse Schans covers your scenery need in 12 minutes.',
+ links:[['I amsterdam','https://www.iamsterdam.com/'],['NS trains','https://www.ns.nl/en'],['Zaanse Schans','https://www.dezaanseschans.nl/en/'],['GVB Amsterdam transit','https://www.gvb.nl/en']]},
+'Brussels':{flag:'🇧🇪',dates:'7 → 9 Sep · 2 nights',hotel:'Condo Gardens Brussels, Schaerbeek',hero:IMG.brussels,
+ base:'Schaerbeek, 800 m from Bruxelles-Nord — which is both your coach terminal and your gateway to Bruges and Ghent.',
+ transit:'A <b>STIB 24-hour pass</b> covers metro, tram and bus for the city days. For the day trip, buy SNCB rail tickets to Ghent and Bruges at Bruxelles-Nord; both are on the same westbound line, roughly 32 and 60 minutes away.',
+ must:['Grand-Place','Galeries Royales Saint-Hubert','Manneken Pis','Mont des Arts','Place du Sablon','Bruges Markt','Ghent Graslei'],
+ scenic:['Mont des Arts viewpoint','Parc de Bruxelles','Parc du Cinquantenaire','Bruges canals at blue hour','Ghent waterfront'],
+ food:['Belgian waffles — Liège style, not the tourist kind','Fries from a friterie, with mayo','Pralines from a real chocolatier','Speculoos','Ghent waterzooi','A trappist beer'],
+ do:['See Grand-Place after dark. The lit facades are the whole reason to be in Brussels.','Do Ghent in the morning and Bruges in the afternoon — same train line.','Use the kitchenette to restock baby supplies and sterilise bottles.','Walk to Bruxelles-Nord rather than working out the tram. It is 10 flat minutes.'],
+ dont:['Don\'t try to add Antwerp. Two nights does not stretch that far.','Don\'t drive into Ghent or Brussels centre — pedestrian zones and a low-emission zone apply. Irrelevant to you now, happily.','Don\'t buy chocolate at the airport-style shops on Grand-Place.','Don\'t rush Bruges. Late afternoon is when it becomes magic.'],
+ baby:'Good. Brussels centre is compact but hilly between the lower and upper town — take the Mont des Arts lifts and escalators. Bruges and Ghent are flat, cobbled and pram-tolerable.',
+ skip:'The Atomium unless you love it. It is a 25-minute metro ride each way for a 1958 sculpture.',
+ links:[['visit.brussels','https://visit.brussels/en'],['Visit Bruges','https://www.visitbruges.be/en'],['Visit Ghent','https://visit.gent.be/en'],['SNCB Belgian rail','https://www.belgiantrain.be/en'],['STIB transit','https://www.stib-mivb.be/index.htm?l=en']]},
+'Paris':{flag:'🇫🇷',dates:'9 → 12 Sep · 3 nights',hotel:'Résidence Internationale de Paris, 20th',hero:IMG.paris,
+ base:'The 20th arrondissement near Porte de Bagnolet. Quiet, residential, with the T3b tram at the door and Métro 3 five minutes away.',
+ transit:'Buy a <b>Navigo Easy</b> card (€2) and load Métro-Train-RER tickets at €2.55 plus a few Bus-Tram tickets at €2.04 — since the 2025 fare reform they are separate products and a Métro ticket will <b>not</b> open the T3b tram. A <b>Navigo Jour</b> at €12.30 covers everything for a day. Critical detail: most Métro stations are <b>not</b> step-free. Line 14 and the T3b tram are. Plan your pram days around those, and take taxis on the two luggage days.',
+ must:['Eiffel Tower','Trocadéro','Champ de Mars','Invalides','Pont Alexandre III','Arc de Triomphe','Montmartre','Sacré-Cœur','Tuileries Garden'],
+ scenic:['Trocadéro at blue hour','Pont de Bir-Hakeim','Seine quays','Montmartre back streets','Père Lachaise','Parc de Belleville viewpoint'],
+ food:['Croissant from a boulangerie, not a café','Baguette, cheese and fruit as a picnic','Crêpes','Falafel in the Marais','Onion soup','Crème brûlée','Pastries from a pâtisserie'],
+ do:['Trocadéro first, always. Best free Eiffel view and empty before 09:30.','Take the Montmartre funicular instead of the steps with a pram.','Picnic at least once — Champ de Mars or the Tuileries.','Take a taxi on 9 Sep arriving and 12 Sep departing. Non-negotiable with luggage.'],
+ dont:['Don\'t try Louvre plus Versailles plus Eiffel. Pick at most one ticketed thing per day.','Don\'t rely on Métro lifts. They mostly do not exist.','Don\'t queue for the Eiffel summit with a 4-month-old.','Don\'t skip the midday hotel window just because the ride back is 30 minutes.'],
+ baby:'Workable rather than easy. Parks and the Seine quays are excellent; the Métro is the weak point. Père Lachaise, 1 km from the hotel, is a genuinely lovely quiet pram walk.',
+ skip:'Versailles and Disneyland. Both are full days you do not have.',
+ links:[['Paris je t\'aime','https://parisjetaime.com/eng/'],['RATP transit','https://www.ratp.fr/en'],['Eiffel Tower official','https://www.toureiffel.paris/en'],['Père Lachaise','https://www.paris.fr/equipements/cimetiere-du-pere-lachaise-4080']]},
+'Cologne':{flag:'🇩🇪',dates:'12 → 13 Sep · 1 night',hotel:'Hotel Boulevard, Hansaring',hero:IMG.cologne,
+ base:'Hansaring, Altstadt-Nord — on the ring boulevard, 1.3 km from the Hauptbahnhof and 1.2 km from the Cathedral.',
+ transit:'Everything you need is walkable. If you would rather ride, a single <b>KVB</b> short-trip ticket covers Hansaring to the Hbf or the Dom. One night does not justify a day pass.',
+ must:['Cologne Cathedral','Hohenzollern Bridge','Rheinboulevard','Cologne Old Town','KölnTriangle viewpoint'],
+ scenic:['Rhine at sunset from the Rheinboulevard steps','Hohenzollern Bridge with the Dom behind','MediaPark lake','Rheinpark'],
+ food:['Kölsch in a 200 ml glass, poured by a Köbes','Halve Hahn','Himmel un Ääd','Reibekuchen','A proper German bakery breakfast'],
+ do:['Do the Dom interior — free, immense, and cool after a travel day.','Cross the Hohenzollern Bridge on foot for the classic view back.','Sit on the Rheinboulevard steps at sunset. That is the memory.','Keep the loop under 2 km. You arrive at 11:15 and leave at 10:44.'],
+ dont:['Don\'t climb the 533 tower steps. Use KölnTriangle instead.','Don\'t plan the Chocolate Museum unless the weather turns.','Don\'t leave Cologne late on 13 Sep — the ICE is at 10:44.','Don\'t attempt anything on the far side of the city.'],
+ baby:'Easy. Flat, compact, and the MediaPark lake is 350 m from your door for a quiet evening loop.',
+ skip:'Everything outside the Dom-to-Rhine corridor. You have an afternoon and an evening.',
+ links:[['Cologne Tourism','https://www.cologne-tourism.com/'],['Cologne Cathedral','https://www.koelner-dom.de/en/'],['KVB transit','https://www.kvb.koeln/english/index.html'],['Deutsche Bahn','https://www.bahn.com/en']]}
+};
+
+/* ---------- 5. ATTRACTIONS ---------- */
+const attractions=[
+['Prague','Czechia 🇨🇿','Prague Castle','Prague Castle, Czechia','⭐ Must see','The largest castle complex in the world by area, and your skyline anchor. Go in the morning.'],
+['Prague','Czechia 🇨🇿','St Vitus Cathedral','St Vitus Cathedral, Prague','⭐ Must see','Gothic interior inside the castle walls. Free in the nave, ticketed beyond it.'],
+['Prague','Czechia 🇨🇿','Charles Bridge','Charles Bridge, Prague','📸 Photo','Best before 08:00 or after 18:00. Cobbled — use the carrier, not the pram.'],
+['Prague','Czechia 🇨🇿','Old Town Square','Old Town Square, Prague','⭐ Must see','Astronomical Clock, Týn Church and the finest square in central Europe.'],
+['Prague','Czechia 🇨🇿','Kampa Island','Kampa Island, Prague','🌿 Scenic','Riverside green space under Charles Bridge. Flat, shaded, pram-friendly.'],
+['Prague','Czechia 🇨🇿','Letná Park','Letná Park, Prague','🌿 Scenic','Free panoramic view over the Vltava bridges. A 15-minute walk from your hotel.'],
+['Prague','Czechia 🇨🇿','Stromovka Park','Stromovka, Prague','👶 Baby easy','Prague\'s largest park, directly beside Residence Vysta. Ideal for a pram nap.'],
+['Prague','Czechia 🇨🇿','Vyšehrad','Vyšehrad, Prague','🌿 Scenic','Hilltop fortress with river views and a fraction of the Old Town crowds.'],
+['Prague','Czechia 🇨🇿','Petřín Hill','Petřín, Prague','📸 Photo','Funicular up, gardens and views. Skip the tower stairs.'],
+['Berlin','Germany 🇩🇪','Brandenburg Gate','Brandenburg Gate, Berlin','⭐ Must see','1.5 km flat walk from Meliá Berlin. Best in low evening light.'],
+['Berlin','Germany 🇩🇪','Reichstag','Reichstag Building, Berlin','⭐ Must see','Free dome visit but registration is required in advance and it books out.'],
+['Berlin','Germany 🇩🇪','Museum Island','Museum Island, Berlin','⭐ Must see','Five museums, a cathedral and a river. 900 m from your hotel.'],
+['Berlin','Germany 🇩🇪','Berlin Cathedral','Berlin Cathedral','📸 Photo','The dome over the Lustgarten. Exterior alone is worth the walk.'],
+['Berlin','Germany 🇩🇪','Tiergarten','Tiergarten, Berlin','👶 Baby easy','210 hectares of park bordering Brandenburg Gate and Potsdamer Platz.'],
+['Berlin','Germany 🇩🇪','Zoo Berlin','Zoo Berlin','👶 Baby easy','Direct 12-minute S-Bahn from Friedrichstraße. The best solo-parent day of the office week.'],
+['Berlin','Germany 🇩🇪','Gendarmenmarkt','Gendarmenmarkt, Berlin','📸 Photo','Twin churches and the concert hall, 700 m from the hotel.'],
+['Berlin','Germany 🇩🇪','Potsdamer Platz','Potsdamer Platz, Berlin','Nice','Modern Berlin in 40 minutes. Two S-Bahn stops from Friedrichstraße.'],
+['Berlin','Germany 🇩🇪','East Side Gallery','East Side Gallery, Berlin','⭐ Must see','1.3 km of painted Wall along the Spree. Pair it with Oberbaum Bridge at sunset.'],
+['Berlin','Germany 🇩🇪','Nikolaiviertel','Nikolaiviertel, Berlin','🌿 Scenic','The oldest quarter, rebuilt. Quiet lanes and riverside cafés.'],
+['Berlin','Germany 🇩🇪','Charlottenburg Palace','Charlottenburg Palace, Berlin','🌿 Scenic','Baroque palace with free formal gardens behind it.'],
+['Amsterdam','Netherlands 🇳🇱','Jordaan','Jordaan, Amsterdam','⭐ Must see','The prettiest canal district. Walk it before 10:00.'],
+['Amsterdam','Netherlands 🇳🇱','Prinsengracht','Prinsengracht, Amsterdam','⭐ Must see','The classic canal-ring view, with houseboats and gables.'],
+['Amsterdam','Netherlands 🇳🇱','Nine Streets','De 9 Straatjes, Amsterdam','⭐ Must see','Nine short lanes of shops bridging three canals.'],
+['Amsterdam','Netherlands 🇳🇱','Canal Cruise','Amsterdam canal cruise','⭐ Must do','Seated, covered, one hour. The single best-value activity with an infant.'],
+['Amsterdam','Netherlands 🇳🇱','Dam Square','Dam Square, Amsterdam','Nice','The civic centre — Royal Palace and Nieuwe Kerk.'],
+['Amsterdam','Netherlands 🇳🇱','Magere Brug','Magere Brug, Amsterdam','📸 Photo','The skinny bridge over the Amstel, lit at night.'],
+['Amsterdam','Netherlands 🇳🇱','Vondelpark','Vondelpark, Amsterdam','👶 Baby easy','47 hectares of park with cafés. The easiest reset in the city.'],
+['Amsterdam','Netherlands 🇳🇱','Museumplein','Museumplein, Amsterdam','Nice','Rijksmuseum and Van Gogh Museum on one lawn. Book ahead if you go in.'],
+['Amsterdam','Netherlands 🇳🇱','Brouwersgracht','Brouwersgracht, Amsterdam','📸 Photo','Frequently called the most beautiful canal in the city. Fewer people than Prinsengracht.'],
+['Zaandam','Netherlands 🇳🇱','Zaanse Schans','Zaanse Schans, Netherlands','🌿 Scenic','Working windmills and wooden houses on the Zaan. <b>One train stop from your hotel.</b> A €17.50 entry fee was proposed for 2026 and then shelved — check the official site before you go.'],
+['Zaandam','Netherlands 🇳🇱','Zaan Riverside','Zaan river, Zaandam','👶 Baby easy','Flat waterside walking minutes from Zaandam station.'],
+['Brussels','Belgium 🇧🇪','Grand-Place','Grand-Place, Brussels','⭐ Must see','A UNESCO square of gilded guild houses. Go after dark when it is lit.'],
+['Brussels','Belgium 🇧🇪','Galeries Royales Saint-Hubert','Galeries Royales Saint-Hubert, Brussels','📸 Photo','An 1847 glass-roofed shopping arcade. Perfect rain plan.'],
+['Brussels','Belgium 🇧🇪','Manneken Pis','Manneken Pis, Brussels','Nice','Small, silly, obligatory. Two minutes from Grand-Place.'],
+['Brussels','Belgium 🇧🇪','Mont des Arts','Mont des Arts, Brussels','📸 Photo','The best view back over the lower town, with lifts and escalators nearby.'],
+['Brussels','Belgium 🇧🇪','Place du Sablon','Place du Grand Sablon, Brussels','Nice','Antiques, chocolatiers and a quieter upper-town square.'],
+['Brussels','Belgium 🇧🇪','Parc du Cinquantenaire','Parc du Cinquantenaire, Brussels','🌿 Scenic','Triumphal arch and wide lawns. Easy pram territory.'],
+['Bruges','Belgium 🇧🇪','Bruges Markt','Markt, Bruges','⭐ Must see','The medieval main square under the Belfry.'],
+['Bruges','Belgium 🇧🇪','Rozenhoedkaai','Rozenhoedkaai, Bruges','📸 Photo','The most photographed canal corner in Belgium. Best in late light.'],
+['Bruges','Belgium 🇧🇪','Burg Square','Burg, Bruges','⭐ Must see','The civic heart, with the Basilica of the Holy Blood.'],
+['Bruges','Belgium 🇧🇪','Minnewater','Minnewaterpark, Bruges','🌿 Scenic','The Lake of Love, swans, and a genuinely peaceful park.'],
+['Bruges','Belgium 🇧🇪','Begijnhof','Begijnhof, Bruges','🌿 Scenic','A walled courtyard of white houses. Silence is requested and honoured.'],
+['Ghent','Belgium 🇧🇪','Graslei & Korenlei','Graslei, Ghent','⭐ Must see','Guild houses facing each other across the water. Ghent\'s signature view.'],
+['Ghent','Belgium 🇧🇪','St Michael\'s Bridge','Sint-Michielsbrug, Ghent','📸 Photo','Three towers in one frame from the bridge deck.'],
+['Ghent','Belgium 🇧🇪','Gravensteen','Gravensteen, Ghent','⭐ Must see','A moated 12th-century castle in the middle of a living city.'],
+['Ghent','Belgium 🇧🇪','Korenmarkt','Korenmarkt, Ghent','Nice','Central square, cafés, and your lunch stop.'],
+['Paris','France 🇫🇷','Eiffel Tower','Eiffel Tower, Paris','⭐ Must see','Going up is optional. Seeing it from three angles is not.'],
+['Paris','France 🇫🇷','Trocadéro','Trocadéro, Paris','📸 Photo','The best free Eiffel view in the city. Be there before 09:30.'],
+['Paris','France 🇫🇷','Champ de Mars','Champ de Mars, Paris','🌿 Scenic','Lawn beneath the tower. Ideal picnic and pram nap.'],
+['Paris','France 🇫🇷','Pont de Bir-Hakeim','Pont de Bir-Hakeim, Paris','📸 Photo','The two-level bridge that frames the tower through its arches.'],
+['Paris','France 🇫🇷','Invalides','Les Invalides, Paris','⭐ Must see','Golden dome and Napoleon\'s tomb, with huge open esplanades.'],
+['Paris','France 🇫🇷','Pont Alexandre III','Pont Alexandre III, Paris','📸 Photo','The most ornate bridge in Paris. Cherubs, lamps, gilt.'],
+['Paris','France 🇫🇷','Tuileries Garden','Jardin des Tuileries, Paris','👶 Baby easy','Chairs, ponds, gravel paths. The best free rest stop in central Paris.'],
+['Paris','France 🇫🇷','Louvre Museum','Louvre Museum, Paris','Optional','World-class, and a full day. Only if art is a personal priority.'],
+['Paris','France 🇫🇷','Montmartre','Montmartre, Paris','⭐ Must see','Village streets on a hill. Arrive before 09:30 to have it to yourselves.'],
+['Paris','France 🇫🇷','Sacré-Cœur','Sacré-Cœur, Paris','⭐ Must see','Panoramic terrace over the whole city. Take the funicular with a pram.'],
+['Paris','France 🇫🇷','Arc de Triomphe','Arc de Triomphe, Paris','⭐ Must see','The hub of twelve avenues. Use the underpass, never the roundabout.'],
+['Paris','France 🇫🇷','Seine River Cruise','Seine river cruise, Paris','⭐ Must do','An hour sitting down while Paris moves past you.'],
+['Paris','France 🇫🇷','Île de la Cité','Île de la Cité, Paris','🌿 Scenic','Notre-Dame, Sainte-Chapelle and the oldest bridge in the city.'],
+['Paris','France 🇫🇷','Père Lachaise','Père Lachaise Cemetery, Paris','🌿 Scenic','Cobbled avenues under old trees, 1 km from your hotel. Quiet and beautiful.'],
+['Paris','France 🇫🇷','Parc de Belleville','Parc de Belleville, Paris','📸 Photo','A local\'s viewpoint over the rooftops, close to the 20th.'],
+['Cologne','Germany 🇩🇪','Cologne Cathedral','Cologne Cathedral','⭐ Must see','UNESCO Gothic on a scale that does not photograph. Interior is free.'],
+['Cologne','Germany 🇩🇪','Hohenzollern Bridge','Hohenzollern Bridge, Cologne','📸 Photo','Love locks, trains overhead, and the Dom behind you.'],
+['Cologne','Germany 🇩🇪','Rheinboulevard','Rheinboulevard, Cologne','🌿 Scenic','Wide riverside steps facing the old town. The sunset spot.'],
+['Cologne','Germany 🇩🇪','KölnTriangle','KölnTriangle, Cologne','📸 Photo','360-degree deck with the definitive Dom-and-Rhine panorama.'],
+['Cologne','Germany 🇩🇪','Cologne Old Town','Cologne Old Town','⭐ Must see','Compact, colourful, and full of Kölsch breweries.'],
+['Cologne','Germany 🇩🇪','MediaPark','MediaPark, Cologne','👶 Baby easy','A lake and lawns 350 m from Hotel Boulevard.'],
+['Cologne','Germany 🇩🇪','Rheinpark','Rheinpark, Cologne','🌿 Scenic','Large riverside park across the Rhine with Cathedral views.']
+];
+
+/* ---------- 6. MAP PINS ---------- */
+const pins=[
+['Prague','Prague Castle',50.0919,14.4010,'Must see','sight'],['Prague','Charles Bridge',50.0865,14.4114,'Photo','sight'],
+['Prague','Old Town Square',50.0870,14.4208,'Must see','sight'],['Prague','Kampa Island',50.0850,14.4090,'Scenic','sight'],
+['Prague','Letná Park',50.0944,14.4170,'Scenic','sight'],['Prague','Vyšehrad',50.0644,14.4178,'Scenic','sight'],
+['Prague','Stromovka Park',50.1050,14.4180,'Baby','sight'],
+['Prague','🏨 Residence Vysta',50.1058,14.4283,'28–30 Aug','hotel'],['Prague','🚉 ÚAN Florenc coach terminal',50.0895,14.4400,'Arrive/depart','station'],
+['Berlin','Brandenburg Gate',52.5163,13.3777,'Must see','sight'],['Berlin','Reichstag',52.5186,13.3761,'Must see','sight'],
+['Berlin','Museum Island',52.5169,13.4019,'Must see','sight'],['Berlin','Tiergarten',52.5145,13.3501,'Baby','sight'],
+['Berlin','Zoo Berlin',52.5079,13.3379,'Baby','sight'],['Berlin','Potsdamer Platz',52.5096,13.3760,'Nice','sight'],
+['Berlin','East Side Gallery',52.5050,13.4396,'Must see','sight'],['Berlin','Gendarmenmarkt',52.5138,13.3925,'Photo','sight'],
+['Berlin','Charlottenburg Palace',52.5209,13.2957,'Scenic','sight'],['Berlin','Nikolaiviertel',52.5165,13.4073,'Scenic','sight'],
+['Berlin','🏨 Meliá Berlin',52.5222,13.3878,'30 Aug–4 Sep','hotel'],['Berlin','🏨 Premier Inn Berlin Airport',52.3895,13.5280,'13–14 Sep','hotel'],
+['Berlin','🚉 Berlin Südkreuz',52.4753,13.3654,'RegioJet coach','station'],['Berlin','🚉 Berlin Hauptbahnhof',52.5250,13.3694,'ICE 148 / ICE 557','station'],
+['Berlin','🚉 Berlin Brandenburg BER',52.3667,13.5033,'Land 28 Aug 08:00 · depart 14 Sep 09:40 for Bengaluru','station'],
+['Amsterdam','Jordaan',52.3738,4.8810,'Must see','sight'],['Amsterdam','Prinsengracht',52.3704,4.8840,'Must see','sight'],
+['Amsterdam','Nine Streets',52.3697,4.8831,'Must see','sight'],['Amsterdam','Dam Square',52.3731,4.8926,'Nice','sight'],
+['Amsterdam','Magere Brug',52.3638,4.9030,'Photo','sight'],['Amsterdam','Vondelpark',52.3579,4.8686,'Baby','sight'],
+['Amsterdam','Museumplein',52.3579,4.8816,'Nice','sight'],['Amsterdam','Brouwersgracht',52.3800,4.8880,'Photo','sight'],
+['Amsterdam','🚉 Amsterdam Centraal',52.3791,4.9003,'ICE 148 arrival','station'],['Amsterdam','🚉 Amsterdam Sloterdijk',52.3888,4.8375,'FlixBus 7 Sep','station'],
+['Zaandam','Zaanse Schans',52.4744,4.8168,'Scenic','sight'],['Zaandam','🏨 Best Western Zaan Inn',52.4390,4.8130,'4–7 Sep','hotel'],
+['Zaandam','🚉 Zaandam station',52.4390,4.8135,'Your local station','station'],['Zaandam','🚉 Zaandijk Zaanse Schans',52.4720,4.8090,'One stop north','station'],
+['Brussels','Grand-Place',50.8467,4.3525,'Must see','sight'],['Brussels','Manneken Pis',50.8450,4.3499,'Nice','sight'],
+['Brussels','Mont des Arts',50.8443,4.3576,'Photo','sight'],['Brussels','Galeries Royales',50.8483,4.3556,'Photo','sight'],
+['Brussels','Place du Sablon',50.8412,4.3562,'Nice','sight'],['Brussels','Parc du Cinquantenaire',50.8410,4.3930,'Scenic','sight'],
+['Brussels','Atomium',50.8949,4.3415,'Optional','sight'],
+['Brussels','🏨 Condo Gardens Brussels',50.8685,4.3655,'7–9 Sep','hotel'],['Brussels','🚉 Bruxelles-Nord coach terminal',50.8600,4.3606,'FlixBus in and out','station'],
+['Bruges','Bruges Markt',51.2093,3.2247,'Must see','sight'],['Bruges','Rozenhoedkaai',51.2058,3.2272,'Photo','sight'],
+['Bruges','Burg Square',51.2089,3.2265,'Must see','sight'],['Bruges','Minnewater',51.1994,3.2184,'Scenic','sight'],
+['Bruges','Begijnhof',51.2019,3.2215,'Scenic','sight'],
+['Ghent','Graslei & Korenlei',51.0530,3.7205,'Must see','sight'],['Ghent','Gravensteen',51.0571,3.7200,'Must see','sight'],
+['Ghent','St Michael\'s Bridge',51.0530,3.7214,'Photo','sight'],['Ghent','Korenmarkt',51.0530,3.7210,'Nice','sight'],
+['Paris','Eiffel Tower',48.8584,2.2945,'Must see','sight'],['Paris','Trocadéro',48.8627,2.2875,'Photo','sight'],
+['Paris','Champ de Mars',48.8556,2.2986,'Scenic','sight'],['Paris','Invalides',48.8566,2.3126,'Must see','sight'],
+['Paris','Pont Alexandre III',48.8639,2.3130,'Photo','sight'],['Paris','Tuileries Garden',48.8634,2.3275,'Baby','sight'],
+['Paris','Louvre Museum',48.8606,2.3376,'Optional','sight'],['Paris','Montmartre & Sacré-Cœur',48.8867,2.3431,'Must see','sight'],
+['Paris','Arc de Triomphe',48.8738,2.2950,'Must see','sight'],['Paris','Île de la Cité',48.8550,2.3470,'Scenic','sight'],
+['Paris','Père Lachaise',48.8614,2.3934,'Scenic','sight'],['Paris','Parc de Belleville',48.8715,2.3838,'Photo','sight'],
+['Paris','🏨 Résidence Internationale de Paris',48.8560,2.4085,'9–12 Sep','hotel'],
+['Paris','🚉 Paris Bercy Seine coach stop',48.8390,2.3820,'FlixBus arrival 9 Sep','station'],
+['Paris','🚉 Paris Gare du Nord',48.8809,2.3553,'Eurostar 12 Sep','station'],
+['Cologne','Cologne Cathedral',50.9413,6.9583,'Must see','sight'],['Cologne','Hohenzollern Bridge',50.9414,6.9656,'Photo','sight'],
+['Cologne','Rheinboulevard',50.9368,6.9655,'Scenic','sight'],['Cologne','KölnTriangle',50.9388,6.9657,'Photo','sight'],
+['Cologne','Old Town',50.9389,6.9590,'Must see','sight'],['Cologne','MediaPark',50.9470,6.9420,'Baby','sight'],
+['Cologne','Rheinpark',50.9470,6.9708,'Scenic','sight'],
+['Cologne','🏨 Hotel Boulevard',50.9480,6.9450,'12–13 Sep','hotel'],['Cologne','🚉 Köln Hauptbahnhof',50.9430,6.9586,'Eurostar in, ICE 557 out','station']
+];
+const routeLineCoords=[[52.4753,13.3654],[50.0895,14.4400],[52.5250,13.3694],[52.3791,4.9003],[52.4390,4.8135],[50.8600,4.3606],[48.8390,2.3820],[50.9430,6.9586],[52.5250,13.3694]];
+
+/* ---------- 7. TICKETS, FOOD, SOURCES, CHECKLIST ---------- */
+const tickets=[
+['🇨🇿','Prague · 28–30 Aug','Prague Integrated Transport (PID)',
+ ['<b>Buy:</b> a 24-hour or 72-hour pass at any metro vending machine, or in the PID Lítačka app. You are here for two nights, so the 72-hour pass is the easy call.','<b>Indicative:</b> 30-min ticket ≈30 CZK · 90-min ≈40 CZK · 24h ≈120 CZK · 72h ≈330 CZK. Confirm on the machine — check the current price rather than trusting this figure.','<b>Covers:</b> metro, trams, buses and the Petřín funicular. Children under 6 travel free; prams travel free.','<b>Note:</b> validate paper tickets in the yellow machine before boarding. Inspectors are frequent and unsympathetic.'],
+ 'https://www.dpp.cz/en/fares'],
+['🇩🇪','Berlin · 30 Aug–4 Sep + 13–14 Sep','BVG / VBB',
+ ['<b>Important 2026 change:</b> the old <b>7-day ticket was withdrawn on 1 January 2026</b>. Do not plan around it. Buy 24-hour AB cards on the days you travel a lot and singles on the days you barely move.','<b>2026 fares:</b> AB single €4.00 · ABC single €5.00 · short-trip (3 rail stops, no change) €2.80. Under-6s free.','<b>Worth checking:</b> the <b>Deutschlandticket</b> is €63 per person per month in 2026 and covers all local and regional transport nationwide. A September ticket would cover Berlin on 1–4 and 13–14 Sep plus Cologne on 12–13 Sep. It is a monthly subscription you must cancel, so only worth it if you will genuinely use it.','<b>Note:</b> BER is zone C. Your 13 Sep hotel at Grünbergallee is zone <b>B</b> — but the ride to the airport crosses into C, so buy ABC that morning.'],
+ 'https://www.bvg.de/en/tickets-and-fares'],
+['🇳🇱','Amsterdam & Zaandam · 4–7 Sep','NS + GVB (OVpay)',
+ ['<b>Buy:</b> nothing. Tap a contactless bank card on the gates — this is OVpay and it works on NS trains and GVB trams.','<b>Indicative:</b> Zaandam ⇄ Amsterdam Centraal ≈€3.60 each way. Zaandijk Zaanse Schans ≈€2.40.','<b>Covers:</b> tap in and tap out every time, including changes between operators.','<b>Note:</b> children under 4 travel free. Check the last train back to Zaandam before an evening in Amsterdam.'],
+ 'https://www.ns.nl/en/travel-information/ovpay'],
+['🇧🇪','Brussels · 7–9 Sep','STIB + SNCB',
+ ['<b>Buy:</b> a STIB 24-hour pass for city days; separate SNCB tickets for the Ghent and Bruges day trip.','<b>Indicative:</b> STIB 24h ≈€8 · Brussels→Ghent ≈€10–12 · Ghent→Bruges ≈€7–9 one way.','<b>Covers:</b> STIB covers metro, tram and bus in Brussels only. Trains are separate.','<b>Note:</b> Belgian rail sells weekend and multi-journey deals — worth checking for the 8 Sep day trip.'],
+ 'https://www.stib-mivb.be/index.htm?l=en'],
+['🇫🇷','Paris · 9–12 Sep','RATP / Île-de-France Mobilités',
+ ['<b>Buy:</b> a <b>Navigo Easy</b> card (€2, once) at any station counter and load tickets onto it. The old cardboard <b>t+ carnet is gone</b> — fares were restructured on 1 January 2025.','<b>2026 fares:</b> Métro-Train-RER ticket <b>€2.55</b> · Bus-Tram ticket <b>€2.04</b> · Navigo Jour (all zones, unlimited) <b>€12.30</b> · Navigo Semaine €32.40, Mon–Sun only.','<b>The catch that costs people money:</b> the two ticket types are <b>not interchangeable</b>. A Métro ticket is not valid on your T3b tram, and a Bus-Tram ticket is not valid on the Métro. Load some of each, or take a Navigo Jour on the days you will do five or more rides.','<b>Note:</b> most Métro stations have no lift. Line 14 and tram T3b are step-free — build your pram days around them.'],
+ 'https://www.ratp.fr/en/titres-et-tarifs'],
+['🇩🇪','Cologne · 12–13 Sep','KVB / VRS',
+ ['<b>Buy:</b> a single short-trip (Kurzstrecke) ticket only if you decide not to walk. One night does not justify a day pass.','<b>Indicative:</b> short-trip ≈€2.30 · single ≈€3.40 · day ticket ≈€8.20. VRS raises fares most Januarys, so treat these as ballpark and read the machine.','<b>Covers:</b> S-Bahn, trams and buses within the city zone. Buy in the KVB app or at a stop machine.','<b>Note:</b> Hotel Boulevard to the Cathedral is 1.2 km on foot. You will probably never buy a ticket here.'],
+ 'https://www.kvb.koeln/english/index.html']
+];
+
+const foods=[
+['🥟','Czechia','Svíčková · goulash in a bread bowl · chlebíčky · trdelník · kolache','Prague is a café city. Use them as baby-reset stops and eat two streets away from any square.'],
+['🥨','Germany','Currywurst · döner · pretzel · schnitzel · Kölsch in Cologne · bakery breakfast','Bakeries are your friend on travel mornings. Sunday closures are real, so buy Saturday.'],
+['🧇','Netherlands','Stroopwafel off the iron · apple pie · poffertjes · patat · aged Gouda · rijsttafel','Best pattern: bakery breakfast, casual lunch, one proper dinner. Indonesian food in Amsterdam is not a novelty, it is a highlight.'],
+['🍫','Belgium','Liège waffles · friterie fries with mayo · pralines · speculoos · waterzooi in Ghent','Buy chocolate from an actual chocolatier, not a Grand-Place gift shop. The price difference is smaller than the quality gap.'],
+['🥐','France','Croissant from a boulangerie · baguette picnic · crêpes · Marais falafel · crème brûlée','Picnic at least once. A €12 baguette-cheese-fruit lunch on the Champ de Mars beats a €60 tourist terrace.']
+];
+
+const sources=[
+['RegioJet','https://www.regiojet.com/','Coach tickets, seat changes and Berlin–Prague timetable.'],
+['Deutsche Bahn','https://www.bahn.com/en','ICE 148 and ICE 557 live times, platform and delay information.'],
+['Eurostar (ex-Thalys)','https://www.eurostar.com/','Paris–Cologne timetable and the 30-minute gate-closing rule.'],
+['FlixBus','https://www.flixbus.com/','Amsterdam Sloterdijk and Brussels-North stop locations and live tracking.'],
+['NS Dutch Railways','https://www.ns.nl/en','Amsterdam ⇄ Zaandam ⇄ Zaanse Schans times and OVpay.'],
+['SNCB Belgian Rail','https://www.belgiantrain.be/en','Brussels → Ghent → Bruges day-trip times and fares.'],
+['BVG Berlin','https://www.bvg.de/en','Berlin zones, S45 and S9 airport services, travelcards.'],
+['Prague Public Transport','https://www.dpp.cz/en','Metro C, tram routes and accessibility information.'],
+['RATP Paris','https://www.ratp.fr/en','Métro and tram T3b routes, step-free station information.'],
+['KVB Cologne','https://www.kvb.koeln/english/index.html','Köln Hbf ⇄ Hansaring services and fares.'],
+['Prague City Tourism','https://prague.eu/en/','Official attractions, family guidance and pram accessibility.'],
+['visitBerlin','https://www.visitberlin.de/en','Tiergarten, Zoo Berlin and family itineraries.'],
+['I amsterdam','https://www.iamsterdam.com/','Official attraction and neighbourhood guidance.'],
+['visit.brussels','https://visit.brussels/en','Grand-Place, museums and city practicalities.'],
+['Paris je t\'aime','https://parisjetaime.com/eng/','Official Paris tourism and the September events calendar.'],
+['Cologne Tourism','https://www.cologne-tourism.com/','Cathedral, Rhine and old-town information.'],
+['Berlin Brandenburg Airport (BER)','https://ber.berlin-airport.de/en.html','Terminal 1 vs 2, check-in times, security and the 14 Sep departure.'],
+['VBB fares','https://www.vbb.de/en/tickets/','2026 Berlin fares. Confirms the 7-day ticket was withdrawn on 1 Jan 2026.'],
+['S-Bahn Berlin','https://sbahn.berlin/en/','S9 stopping pattern to Grünbergallee and the withdrawal of the S45.'],
+['Île-de-France Mobilités','https://www.iledefrance-mobilites.fr/en/','2026 Paris fares: separate Métro and Bus-Tram tickets, Navigo Jour.'],
+['Rijden de Treinen · engineering works','https://www.rijdendetreinen.nl/en/engineering-works','Live list of Amsterdam–Hannover–Berlin disruption windows in 2026.'],
+['Zaanse Schans official','https://www.dezaanseschans.nl/en/','Whether the proposed €17.50 entry fee is actually in force when you travel.']
+];
+
+const checks=['Baby passport + Schengen visa check + travel insurance / GHIC card packed','Cot requested and confirmed at all 7 hotels','RegioJet, FlixBus, ICE and Eurostar tickets downloaded offline','Screenshots of all 9 legs saved to the phone gallery','Compact pram + baby carrier (carrier is essential for cobbles)','Rain cover and a warm layer — September evenings drop fast','Changing kit in a cabin bag, never in the hold','Formula / feeding kit for 12 hours of travel on 28 Aug and 4 Sep','Table seat reserved on ICE 148 and ICE 557','ICE 557 on 13 Sep re-checked on bahn.com — Hannover–Berlin engineering works','Taxi pre-booked for 12 Sep 06:30 Gare du Nord run','Taxi pre-booked for 14 Sep 06:15 hotel → BER run','BER flight: bassinet / bulkhead seat requested with the airline','BER flight: infant ticket issued and connection time confirmed','BER flight: terminal confirmed (T1 or T2) on the boarding pass','City transit tickets bought on arrival in each city','Paris: step-free route noted (Métro 14 + tram T3b), separate tram tickets loaded','13 Sep kept completely free as the flight buffer'];
+
+/* ================= RENDERERS ================= */
+
+/* route strip */
+const routeStops=[['🇩🇪 Berlin','28 Aug · land 08:00'],['🇨🇿 Prague','28–30 Aug'],['🇩🇪 Berlin','30 Aug–4 Sep'],['🇳🇱 Amsterdam','4–7 Sep'],['🇧🇪 Brussels','7–9 Sep'],['🇫🇷 Paris','9–12 Sep'],['🇩🇪 Cologne','12–13 Sep'],['🇩🇪 Berlin','13–14 Sep']];
+document.getElementById('route').innerHTML=routeStops.map((s,i)=>`<div class="stop"><div class="dot"></div><b>${s[0]}</b><small>${s[1]}</small></div>${i<routeStops.length-1?'<div class="line"></div>':''}`).join('');
+
+/* legs */
+function renderLegs(filter='all'){
+  const host=document.getElementById('legList');
+  const list=legs.filter(l=>filter==='all'||l.type===filter);
+  host.innerHTML=list.map((l,idx)=>{
+    const t=l.tf;
+    return `<article class="leg${idx===0?' open':''}">
+      <div class="leg-head" onclick="this.parentElement.classList.toggle('open')">
+        <div class="leg-date"><b>${l.date}</b><span>${l.mon}</span></div>
+        <div><div class="leg-title">Leg ${l.n} · ${l.title}</div><div class="leg-sub">${l.dow} · ${l.sub}</div></div>
+        <div class="leg-mode">${l.mode}</div>
+      </div>
+      <div class="leg-body">
+        <div>
+          <h4 class="eyebrow">⏱ Timetable</h4>
+          <div class="sched">${l.sched.map(s=>`<div class="t">${s[0]}</div><div class="p"><b>${s[1]}</b><span>${s[2]||''}</span></div>`).join('')}</div>
+        </div>
+        <div>
+          <div class="transfer">
+            <h4>🏨 ${t.label}</h4>
+            <div class="tf-grid">
+              <div><small>From</small><b>${t.from}</b></div>
+              <div><small>To</small><b>${t.to}</b></div>
+              <div><small>Distance</small><b>${t.dist}</b></div>
+              <div><small>Mode</small><b>${t.modeName}</b></div>
+              <div><small>Time</small><b>${t.time}</b></div>
+              <div><small>Cost</small><b>${t.cost}</b></div>
+            </div>
+            <ol class="tf-steps">${t.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+            <div class="btnrow">
+              <a class="btn" target="_blank" rel="noopener noreferrer" href="${dirUrl(t.from,t.to,'transit')}">🚉 Transit route</a>
+              <a class="btn2" target="_blank" rel="noopener noreferrer" href="${dirUrl(t.from,t.to,'driving')}">🚕 Taxi route</a>
+              <a class="btn2" target="_blank" rel="noopener noreferrer" href="${mapUrl(t.to)}">📍 Open hotel</a>
+              <a class="btn2" target="_blank" rel="noopener noreferrer" href="${mapUrl(t.from)}">📍 Open station</a>
+            </div>
+            ${t.note?`<p class="note">💡 ${t.note}</p>`:''}
+          </div>
+          ${t.flag?`<div class="flag">⚠️ ${t.flag}</div>`:''}
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+renderLegs();
+document.querySelectorAll('[data-leg]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-leg]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');renderLegs(b.dataset.leg);
+}));
+function setLegsOpen(open){document.querySelectorAll('#legList .leg').forEach(x=>x.classList.toggle('open',open))}
+document.getElementById('legOpenAll').addEventListener('click',()=>setLegsOpen(true));
+document.getElementById('legCloseAll').addEventListener('click',()=>setLegsOpen(false));
+
+/* hotels */
+function renderHotels(filter='all'){
+  const list=hotels.filter(h=>filter==='all'||h[0]===filter);
+  document.getElementById('hotelGrid').innerHTML=list.map(h=>`<article class="hotel">
+    <div class="tagrow"><span class="hotel-city">${h[1]}</span><span class="nights">${h[4]}</span></div>
+    <h3>${h[2]}</h3><div class="addr">${h[3]}</div>
+    <p class="hrow">${h[5]}</p>
+    <div class="hrow"><b>🚕 Getting there:</b> ${h[6]}</div>
+    <div class="hrow"><b>📐 Distances that matter:</b><ul style="margin:6px 0;padding-left:19px">${h[7].map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="callout" style="font-size:12.5px">👶 ${h[8]}</div>
+    <div class="hotel-actions">
+      <a class="btn" target="_blank" rel="noopener noreferrer" href="${mapUrl(h[2]+', '+h[3])}">📍 Map</a>
+      <a class="btn2" target="_blank" rel="noopener noreferrer" href="${h[9]}">🏨 Official site ↗</a>
+      <a class="btn2" target="_blank" rel="noopener noreferrer" href="${tripUrl(h[2])}">⭐ Reviews</a>
+    </div>
+  </article>`).join('');
+}
+renderHotels();
+document.querySelectorAll('[data-hotel]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-hotel]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');renderHotels(b.dataset.hotel);
+}));
+
+/* days */
+function renderDays(filter='all'){
+  const list=days.filter(d=>filter==='all'||d[5]===filter);
+  document.getElementById('dayList').innerHTML=list.map(d=>`<article class="day">
+    <div class="day-top" onclick="this.parentElement.classList.toggle('open')">
+      <div class="num">D${String(d[0]).padStart(2,'0')}</div>
+      <div><div class="eyebrow">${d[1]} · ${d[2]}</div><h3>${d[3]}</h3></div>
+      <div class="badge ${d[5]}">${d[4]}</div>
+    </div>
+    <div class="day-body">
+      <div><div class="day-img" style="background-image:url('${d[6]}')"></div>
+      <div class="callout" style="margin-top:12px"><b>💡 The one thing that matters today:</b> ${d[8]}</div></div>
+      <div><h4 class="eyebrow">⏱ Timeline</h4><div class="tl">${d[7].map(t=>`<div><b>${t[0]}</b><span>${t[1]}</span></div>`).join('')}</div></div>
+    </div>
+  </article>`).join('');
+}
+renderDays();
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');renderDays(b.dataset.filter);
+}));
+function setDaysOpen(open){document.querySelectorAll('#dayList .day').forEach(x=>x.classList.toggle('open',open))}
+document.getElementById('dayOpenAll').addEventListener('click',()=>setDaysOpen(true));
+document.getElementById('dayCloseAll').addEventListener('click',()=>setDaysOpen(false));
+
+/* city playbooks */
+const cityTabs=document.getElementById('cityTabs');
+Object.keys(cities).forEach((n,i)=>{const b=document.createElement('button');b.className='tab'+(i===0?' active':'');b.textContent=cities[n].flag+' '+n;b.onclick=()=>city(n);cityTabs.appendChild(b)});
+function city(n){
+  const c=cities[n];
+  [...cityTabs.children].forEach(b=>b.classList.toggle('active',b.textContent===c.flag+' '+n));
+  const chip=(x,cty)=>`<a class="chip" target="_blank" rel="noopener noreferrer" href="${mapUrl(x+', '+cty)}">${x} ↗</a>`;
+  document.getElementById('cityPanel').innerHTML=`
+  <div class="city-hero" style="background-image:url('${c.hero}')"><div class="city-content">
+    <div class="eyebrow" style="color:#a8c8ff">${c.dates} · ${c.hotel}</div>
+    <h2 style="color:#fff">${c.flag} ${n}</h2>
+    <p style="max-width:720px;color:#e6edf7;margin:6px 0 0">${c.base}</p>
+  </div></div>
+  <div class="callout" style="margin-top:14px"><b>🎫 How you get around here:</b> ${c.transit}</div>
+  <div class="columns">
+    <div class="list"><h3>⭐ Must see</h3><div>${c.must.map(x=>chip(x,n)).join('')}</div><p class="muted" style="font-size:11px;margin-top:9px">Each chip opens the exact place in Google Maps.</p></div>
+    <div class="list"><h3>🌿 Scenic + free</h3><div>${c.scenic.map(x=>chip(x,n)).join('')}</div></div>
+    <div class="list"><h3>🍽️ Must eat</h3><ul>${c.food.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="list"><h3>👶 Baby verdict</h3><p style="font-size:14px">${c.baby}</p><p style="font-size:14px;margin-top:10px"><b>Skip:</b> ${c.skip}</p></div>
+    <div class="list"><h3>✅ Do</h3><ul>${c.do.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="list"><h3>❌ Don't</h3><ul>${c.dont.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  </div>
+  <div class="sources" style="margin-top:14px">${c.links.map(l=>`<a class="source" target="_blank" rel="noopener noreferrer" href="${l[1]}"><b>${l[0]}</b><span class="muted" style="display:block;margin-top:4px">Official source ↗</span></a>`).join('')}</div>`;
+}
+city('Prague');
+
+/* attractions explorer */
+const attrSearch=document.getElementById('attrSearch'),attrCity=document.getElementById('attrCity'),
+ attrCountry=document.getElementById('attrCountry'),attrGrid=document.getElementById('attrGrid'),attrCount=document.getElementById('attrCount');
+let attrFilter='all';
+[...new Set(attractions.map(a=>a[0]))].forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;attrCity.appendChild(o)});
+[...new Set(attractions.map(a=>a[1]))].forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;attrCountry.appendChild(o)});
+function renderExplorer(){
+  const q=(attrSearch.value||'').toLowerCase().trim(),cy=attrCity.value,co=attrCountry.value;
+  const list=attractions.filter(a=>{
+    const hay=a.join(' ').toLowerCase();
+    return (cy==='all'||a[0]===cy)&&(co==='all'||a[1]===co)&&(!q||hay.includes(q))&&(attrFilter==='all'||a[4].includes(attrFilter));
+  });
+  attrCount.textContent=list.length+' place'+(list.length===1?'':'s')+' shown';
+  attrGrid.innerHTML=list.length?list.map(a=>`<article class="attr-card">
+    <div class="attr-top"><span class="attr-city">${a[1]} · ${a[0]}</span><span class="attr-tag">${a[4]}</span></div>
+    <h3>${a[2]}</h3><p>${a[5]}</p>
+    <div class="attr-actions">
+      <a class="btn" target="_blank" rel="noopener noreferrer" href="${mapUrl(a[3])}">📍 Google Maps</a>
+      <a class="btn2" target="_blank" rel="noopener noreferrer" href="${tripUrl(a[3])}">⭐ TripAdvisor</a>
+    </div></article>`).join('')
+    :'<div class="no-results">Nothing matched that. Try a city, a landmark, or a category like “canal”, “castle”, “park”.</div>';
+}
+attrSearch.addEventListener('input',renderExplorer);
+attrCity.addEventListener('change',renderExplorer);
+attrCountry.addEventListener('change',renderExplorer);
+document.querySelectorAll('[data-attr]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-attr]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');attrFilter=b.dataset.attr;renderExplorer();
+}));
+renderExplorer();
+function focusAttraction(name){
+  attrSearch.value=name;renderExplorer();
+  setTimeout(()=>document.getElementById('explorer').scrollIntoView({behavior:'smooth'}),60);
+}
+
+/* map */
+let tripMap=null,markers=[],mapFilter='all',routeLine=null;
+const icons={};
+function makeIcon(color){return L.divIcon({className:'pin',html:`<div style="width:16px;height:16px;border-radius:50%;background:${color};border:3px solid #fff;box-shadow:0 2px 9px #11182766"></div>`,iconSize:[16,16],iconAnchor:[8,8]})}
+function renderMap(){
+  if(typeof L==='undefined'){const f=document.getElementById('mapFallback');if(f)f.style.display='grid';return}
+  if(!tripMap){
+    tripMap=L.map('tripMap',{zoomControl:false,scrollWheelZoom:true}).setView([50.9,7.5],5);
+    L.control.zoom({position:'bottomright'}).addTo(tripMap);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(tripMap);
+    icons.sight=makeIcon('#2563eb');icons.hotel=makeIcon('#101828');icons.station=makeIcon('#12b886');
+  }
+  markers.forEach(m=>tripMap.removeLayer(m));markers=[];
+  if(routeLine){tripMap.removeLayer(routeLine);routeLine=null}
+  const list=pins.filter(p=>{
+    if(mapFilter==='all')return true;
+    if(mapFilter==='Hotel')return p[5]==='hotel';
+    if(mapFilter==='Station')return p[5]==='station';
+    return p[0]===mapFilter;
+  });
+  document.getElementById('mapCount').textContent=list.length;
+  const bounds=[];
+  list.forEach(p=>{
+    const m=L.marker([p[2],p[3]],{icon:icons[p[5]]}).addTo(tripMap);
+    const q=p[1].replace(/^[^\w]+\s*/,'')+', '+p[0];
+    m.bindPopup(`<div class="marker-title">${p[1]}</div><div class="marker-meta">${p[0]} · ${p[4]}</div><a class="marker-link" target="_blank" rel="noopener noreferrer" href="${mapUrl(q)}">Open in Google Maps ↗</a>`);
+    m.on('click',()=>selectPin(p));
+    markers.push(m);bounds.push([p[2],p[3]]);
+  });
+  if(mapFilter==='all'){
+    routeLine=L.polyline(routeLineCoords,{color:'#2563eb',weight:4,opacity:.65,dashArray:'9 9'}).addTo(tripMap);
+    routeLineCoords.forEach(c=>bounds.push(c));
+  }
+  if(bounds.length===1)tripMap.setView(bounds[0],14);
+  else if(bounds.length)tripMap.fitBounds(bounds,{padding:[35,35],maxZoom:12});
+}
+function selectPin(p){
+  const q=p[1].replace(/^[^\w]+\s*/,'')+', '+p[0];
+  const kind=p[5]==='hotel'?'Your booked hotel':p[5]==='station'?'A station in your itinerary':'Sight';
+  document.getElementById('selTitle').textContent=p[1];
+  document.getElementById('selText').textContent=`${p[0]} · ${kind} · ${p[4]}`;
+  document.getElementById('selActions').innerHTML=`<div class="btnrow" style="margin:13px 0">
+    <a class="btn" target="_blank" rel="noopener noreferrer" href="${mapUrl(q)}">📍 Google Maps</a>
+    <a class="btn2" target="_blank" rel="noopener noreferrer" href="${tripUrl(q)}">⭐ TripAdvisor</a></div>`;
+}
+document.querySelectorAll('[data-map]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-map]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');mapFilter=b.dataset.map;renderMap();
+}));
+document.getElementById('resetMap').addEventListener('click',()=>{
+  mapFilter='all';
+  document.querySelectorAll('[data-map]').forEach(x=>x.classList.toggle('active',x.dataset.map==='all'));
+  document.getElementById('selTitle').textContent='Your route at a glance';
+  document.getElementById('selText').textContent='The dashed line is your actual travel order. Blue pins are sights, dark pins are hotels, green pins are the stations you actually use.';
+  document.getElementById('selActions').innerHTML='';
+  renderMap();
+});
+renderMap();
+
+/* tickets, food, sources, checklist */
+document.getElementById('ticketGrid').innerHTML=tickets.map(t=>`<article class="ticket">
+  <div class="eyebrow">${t[0]} ${t[1]}</div><h3>${t[2]}</h3>
+  ${t[3].map(x=>`<p>${x}</p>`).join('')}
+  <div class="btnrow" style="margin-top:12px"><a class="btn2" target="_blank" rel="noopener noreferrer" href="${t[4]}">Official fares ↗</a></div>
+</article>`).join('');
+
+document.getElementById('foodGrid').innerHTML=foods.map(f=>`<article class="food">
+  <div class="icon">${f[0]}</div><h3>${f[1]}</h3><p style="font-size:14px"><b>Try:</b> ${f[2]}</p>
+  <p class="muted" style="font-size:13px">${f[3]}</p></article>`).join('');
+
+document.getElementById('sourceList').innerHTML=sources.map(s=>`<a class="source" target="_blank" rel="noopener noreferrer" href="${s[1]}">
+  <b>${s[0]}</b><span class="muted" style="display:block;margin-top:4px">${s[2]}</span></a>`).join('');
+
+document.getElementById('checks').innerHTML=checks.map((c,i)=>`<label class="check"><input type="checkbox" data-i="${i}"><span>${c}</span></label>`).join('');
+document.querySelectorAll('#checks input').forEach(c=>{
+  const k='euro2026_'+c.dataset.i;
+  c.checked=localStorage.getItem(k)==='1';
+  c.onchange=()=>localStorage.setItem(k,c.checked?'1':'0');
+});
+
+/* budget */
+const bIds=['bNights','bHotel','bFood','bInter','bTransit','bAttr'];
+function calc(){
+  const v=id=>+document.getElementById(id).value||0;
+  const nights=v('bNights'),hotel=v('bHotel')*nights,food=v('bFood')*(nights+1),
+    inter=v('bInter'),transit=v('bTransit'),attr=v('bAttr');
+  const total=hotel+food+inter+transit+attr;
+  document.getElementById('bTotal').textContent='€'+Math.round(total).toLocaleString('en-GB');
+  document.getElementById('bBreak').textContent=`2 adults + infant · ${nights} nights · excludes flights and shopping`;
+  const rows=[['Hotels · '+nights+' nights',hotel],['Food · '+(nights+1)+' days',food],['Intercity tickets (booked)',inter],['City transit passes',transit],['Attractions & cruises',attr]];
+  document.getElementById('budgetShape').innerHTML=rows.map(r=>{
+    const pct=total?Math.round(r[1]/total*100):0;
+    return `<div class="brow"><b>${r[0]}</b><span>€${Math.round(r[1]).toLocaleString('en-GB')} · ${pct}%<div class="bar"><i style="width:${pct}%"></i></div></span></div>`;
+  }).join('');
+}
+bIds.forEach(id=>document.getElementById(id).addEventListener('input',calc));
+calc();
+</script>
+</body>
+</html>
